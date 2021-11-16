@@ -39,13 +39,16 @@ std::optional<std::array<int, io::grid_size>> io::read_txt_grid(const std::strin
     std::array<int, io::grid_size> res{ };
 
     std::string line;
+    auto it = std::begin(res);
+
+    // todo: better handling of user input
     while(getline(fs.value(), line))
     {
         std::istringstream iss{ line };
         int i;
-        while (iss >> i)
+        while (iss >> i && it != std::end(res))
         {             
-            std::cout << i << '\n';
+            *it++ = i;
         }
     }
 
