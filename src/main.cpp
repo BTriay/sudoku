@@ -3,7 +3,7 @@
 
 #include <array>
 
-#include "io.h"
+#include "utils\io.h"
 
 int main(int argc, char* argv[])
 {
@@ -25,21 +25,8 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    /*for (const auto& v : grid_array.value())
-        std::cout << v << ", ";*/
+    for (const auto& v : grid_array.value())
+        std::cout << v << ", ";
 
-    /*std::fstream s{ filename, s.in };
-    if (!s.is_open()) {
-        std::cout << "The file " << filename << " could not be opened" << '\n';
-        return 1;
-    }
-    
-    char c;
-    while (s.get(c))
-    {
-        
-        if (std::isspace(c)) continue;
-        std::cout << c << ' - ';
-    }*/
 
 }
