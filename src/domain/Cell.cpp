@@ -2,6 +2,9 @@
 
 #include "Cell.h"
 
+using std::begin;
+using std::end;
+
 Cell::Cell(int val)
 {
 	m_solution = 0;
@@ -9,7 +12,7 @@ Cell::Cell(int val)
 	if (0 < val && val < 10)
 		set_solution(val);
 	else
-		std::iota(std::begin(m_possible_values), std::end(m_possible_values), 0);
+		std::iota(begin(m_possible_values), end(m_possible_values), 0);
 }
 
 void Cell::set_solution(int val)
@@ -37,8 +40,7 @@ void Cell::remove_possible_value(int val)
 void Cell::remove_all_possible_values()
 {
 	std::generate(
-		std::begin(m_possible_values),
-		std::end(m_possible_values),
+		begin(m_possible_values),
+		end(m_possible_values),
 		[] { return 0; });
 }
-
