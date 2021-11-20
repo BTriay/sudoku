@@ -6,6 +6,8 @@ project(Sudoku	VERSION 0.1
 				
 add_executable(sudoku
 				src/main.cpp
+				src/Grid.cpp
+				src/Grid.h
 				src/utils/io.cpp
 				src/utils/io.h
 				src/domain/Cell.cpp
