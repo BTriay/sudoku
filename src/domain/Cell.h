@@ -23,4 +23,6 @@ private:
 	void remove_all_possible_values();
 };
 
+std::array<int, 9> common_possible_values(const Cell& lhs, const Cell& rhs);
+
 #endif // !HEADER_CELL

@@ -44,3 +44,23 @@ void Cell::remove_all_possible_values()
 		end(m_possible_values),
 		[] { return 0; });
 }
+
+std::array<int, 9> common_possible_values(const Cell& lhs, const Cell& rhs)
+{
+	std::array<int, 9> res{};
+	auto lhs_arr = lhs.possible_values();
+	auto rhs_arr = rhs.possible_values();
+
+	auto i = 0;
+	while (i < 9)
+	{
+		if (lhs_arr[i] && lhs_arr[i] == rhs_arr[i])
+			res[i] = i + 1;
+		else
+			res[i] = 0;
+
+		++i;
+	}
+
+	return res;
+}
