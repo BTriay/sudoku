@@ -14,7 +14,7 @@ public:
 
 	std::array<int, 9> possible_values() const;
 	
-	void remove_possible_value(int val);
+	bool remove_possible_value(int val);
 
 private:
 	int m_solution;
