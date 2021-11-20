@@ -9,7 +9,7 @@ class Cell
 public:
 	Cell(int val = {});
 
-	constexpr int solution() { return m_solution; }
+	int solution() const { return m_solution; }
 	void set_solution(int val);
 
 	std::array<int, 9> possible_values() const;
