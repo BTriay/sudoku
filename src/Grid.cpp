@@ -20,7 +20,6 @@ int engine::Grid::cell_solution(int cell_position) const
 	return std::max(m_cells[cell_position].solution(), 0);
 }
 
-
 std::array<int, 9> engine::same_row_cells(int cell_position)
 {
 	std::array<int, 9> res{};
@@ -47,7 +46,11 @@ std::array<int, 9> engine::same_block_cells(int cell_position)
 {
 	std::array<int, 9> res{};
 
-	auto init_value = (cell_position / 3) * 3;
+	// there must be a simpler way..
+	auto top_left = (cell_position / 27) * 27;
+	auto offset = (((cell_position - top_left) % 9) / 3) * 3;
+	auto init_value = top_left + offset;
+
 	std::iota(begin(res), begin(res) + 3, init_value);
 	std::iota(begin(res) + 3, begin(res) + 6, init_value + 9);
 	std::iota(begin(res) + 6, end(res), init_value + 18);
@@ -74,6 +77,7 @@ std::ostream& engine::operator<<(std::ostream& os, const Grid& g)
 		if (row == 2 || row == 5)
 			os << "###################\n";
 	}
+	os << '\n';
 
 	return os;
 }
