@@ -26,8 +26,6 @@ std::array<int, 9> Cell::possible_values() const
 {
 	std::array<int, 9> res{ m_possible_values };
 	
-	std::sort(std::begin(res), std::end(res));
-
 	return res;
 }
 
