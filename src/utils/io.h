@@ -10,7 +10,7 @@ namespace io
 	std::optional<std::fstream> get_file_stream(const std::string& filename);
 	}
 
-	const int grid_size = 81;
+	constexpr int grid_size = 81;
 
 	std::optional<std::array<int, grid_size>> read_txt_grid(const std::string& filename);
 
