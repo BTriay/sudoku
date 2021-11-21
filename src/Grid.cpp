@@ -48,6 +48,81 @@ void engine::Grid::clean_from_existing_solution()
 		clean_from_existing_solution();
 }
 
+// strategy #2
+// check if a value is possible in a single cell within a row/column/block
+void engine::Grid::check_unique_value()
+{
+	auto updated_cell = false;;
+	updated_cell = updated_cell || check_unique_values_rows();
+	updated_cell = updated_cell || check_unique_values_columns();
+	updated_cell = updated_cell || check_unique_values_blocks();
+	
+	if (updated_cell)
+	{
+		clean_from_existing_solution();
+		check_unique_value();
+	}
+}
+
+bool engine::Grid::check_unique_values_rows()
+{
+	auto updated_cell = false;
+	for (auto i = 0; i < 9; ++i)
+	{
+		updated_cell = updated_cell || check_unique_values_area(same_row_cells(i * 9));
+	}
+	return updated_cell;
+}
+
+bool engine::Grid::check_unique_values_columns()
+{
+	auto updated_cell = false;
+	for (auto i = 0; i < 9; ++i)
+	{
+		updated_cell = updated_cell || check_unique_values_area(same_column_cells(i));
+	}
+	return updated_cell;
+}
+
+bool engine::Grid::check_unique_values_blocks()
+{
+	auto updated_cell = false;
+	for (auto i = 0; i < 9; ++i)
+	{
+		updated_cell = updated_cell || check_unique_values_area(same_block_cells(i * 3));
+	}
+	return updated_cell;
+}
+
+bool engine::Grid::check_unique_values_area(std::array<int, 9> cells_positions)
+{
+	auto updated_cell = false;
+
+	for (auto value = 0; value < 9; ++value)
+	{
+		auto value_found_counter  = 0;
+		auto first_cell_with_value = -1;
+
+		for (auto cell_position : cells_positions)
+		{
+			if (!m_cells[cell_position].is_possible_value(value))
+				continue;
+			
+			++value_found_counter;
+			if (value_found_counter == 1)
+				first_cell_with_value = cell_position;
+		}
+
+		if (value_found_counter == 1)
+		{
+			m_cells[first_cell_with_value].set_solution(value);
+			updated_cell = true;
+		}
+	}
+	
+	return updated_cell;
+}
+
 std::array<int, 9> engine::same_row_cells(int cell_position)
 {
 	std::array<int, 9> res{};
