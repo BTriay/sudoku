@@ -31,6 +31,14 @@ std::array<int, 9> Cell::possible_values() const
 	return res;
 }
 
+bool Cell::is_possible_value(int value)
+{
+	if (0 < value && value < 10)
+		return m_possible_values[value-1] != 0;
+	
+	return false;
+}
+
 // return true if we have removed enough values to find the solution
 bool Cell::remove_possible_value(int val)
 {

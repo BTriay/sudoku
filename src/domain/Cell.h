@@ -13,6 +13,7 @@ public:
 	void set_solution(int val);
 
 	std::array<int, 9> possible_values() const;
+	bool is_possible_value(int value);
 	
 	bool remove_possible_value(int val);
 
