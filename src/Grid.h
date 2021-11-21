@@ -15,6 +15,9 @@ namespace engine
 
 		int cell_solution(int cell_position) const;
 
+		void clean_from_existing_solution();
+
+
 	private:
 		std::array<Cell, 81> m_cells;
 

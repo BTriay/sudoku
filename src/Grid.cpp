@@ -20,6 +20,34 @@ int engine::Grid::cell_solution(int cell_position) const
 	return std::max(m_cells[cell_position].solution(), 0);
 }
 
+// strategy #1
+// simply clean up the possible values based on the existing solution
+void engine::Grid::clean_from_existing_solution()
+{
+	auto new_solution = false;
+
+	for (auto i = 0; i < 81; ++i)
+	{
+		if (m_cells[i].solution())
+		{
+			auto sol = m_cells[i].solution();
+
+			for (auto c : same_row_cells(i))
+				new_solution = new_solution || m_cells[c].remove_possible_value(sol);
+
+			for (auto c : same_column_cells(i))
+				new_solution = new_solution || m_cells[c].remove_possible_value(sol);
+
+			for (auto c : same_block_cells(i))
+				new_solution = new_solution || m_cells[c].remove_possible_value(sol);
+		}
+
+	}
+
+	if (new_solution)
+		clean_from_existing_solution();
+}
+
 std::array<int, 9> engine::same_row_cells(int cell_position)
 {
 	std::array<int, 9> res{};
@@ -60,6 +88,8 @@ std::array<int, 9> engine::same_block_cells(int cell_position)
 
 std::ostream& engine::operator<<(std::ostream& os, const Grid& g)
 {
+	os << '\n';
+
 	for (auto row = 0; row < 9; ++row)
 	{
 		for (auto column = 0; column < 9; ++column)
