@@ -52,7 +52,7 @@ void engine::Grid::clean_from_existing_solution()
 // check if a value is possible in a single cell within a row/column/block
 void engine::Grid::check_unique_value()
 {
-	auto updated_cell = false;;
+	auto updated_cell = false;
 	updated_cell = updated_cell || check_unique_values_rows();
 	updated_cell = updated_cell || check_unique_values_columns();
 	updated_cell = updated_cell || check_unique_values_blocks();
@@ -98,7 +98,7 @@ bool engine::Grid::check_unique_values_area(std::array<int, 9> cells_positions)
 {
 	auto updated_cell = false;
 
-	for (auto value = 0; value < 9; ++value)
+	for (auto value = 1; value < 10; ++value)
 	{
 		auto value_found_counter  = 0;
 		auto first_cell_with_value = -1;
