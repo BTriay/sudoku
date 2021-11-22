@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 
 #include "utils\io.h"
@@ -23,9 +24,14 @@ int main(int argc, char* argv[])
 
     engine::Grid g{ grid_array.value()};
 
-    std::cout << g;
+    std::fstream fs{ "output_grid.txt", std::ios::out };
+    fs << "Starting grid:\n";
+    fs << g;
+    
     g.clean_from_existing_solution();
     g.check_unique_value();
-    std::cout << g;
+    
+    fs << "\nSolution found:\n";
+    fs << g;
 
 }
