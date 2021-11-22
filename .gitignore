@@ -34,3 +34,11 @@
 
 /build*
 /.vs*
+
+#Doxyfiles
+/html*
+/latex*
+
+input_grid.txt
+input_grids.txt
+todo.txt
