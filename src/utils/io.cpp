@@ -31,25 +31,19 @@ std::optional<std::fstream> io::helper::get_file_stream(const std::string& filen
 
 std::optional<std::array<int, io::grid_size>> io::read_txt_grid(const std::string& filename)
 {
-
     auto fs = helper::get_file_stream(filename);
     if (!fs.has_value())
         return {};
 
     std::array<int, io::grid_size> res{ };
 
-    std::string line;
     auto it = std::begin(res);
+    char c;
 
-    while(getline(fs.value(), line))
+    while(fs.value().get(c))
     {
-        std::istringstream iss{ line };
-        char c;
-        while (iss >> c && it != std::end(res))
-        {             
-            if (isdigit(c))
-                *it++ = c - '0';
-        }
+        if (isdigit(c))
+            *it++ = c - '0';
     }
 
     return res;
