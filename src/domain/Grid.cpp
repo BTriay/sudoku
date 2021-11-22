@@ -20,8 +20,9 @@ int engine::Grid::cell_solution(int cell_position) const
 	return std::max(m_cells[cell_position].solution(), 0);
 }
 
-// strategy #1
-// simply clean up the possible values based on the existing solution
+/*!
+strategy #1: simply clean up the possible values based on the existing solution
+*/
 void engine::Grid::clean_from_existing_solution()
 {
 	auto new_solution = false;
@@ -48,8 +49,9 @@ void engine::Grid::clean_from_existing_solution()
 		clean_from_existing_solution();
 }
 
-// strategy #2
-// check if a value is possible in a single cell within a row/column/block
+/*!
+strategy #2: check if a value is possible in a single cell within a row/column/block
+ */
 void engine::Grid::check_unique_value()
 {
 	auto updated_cell = false;
@@ -122,6 +124,9 @@ bool engine::Grid::check_unique_values_area(std::array<int, 9> cells_positions)
 	
 	return updated_cell;
 }
+
+// #strategy 3
+
 
 std::array<int, 9> engine::same_row_cells(int cell_position)
 {

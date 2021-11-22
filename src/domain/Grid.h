@@ -3,7 +3,7 @@
 #include <iostream>
 #include <array>
 
-#include "./domain/Cell.h"
+#include ".\Cell.h"
 
 namespace engine
 {
@@ -18,15 +18,13 @@ namespace engine
 		void clean_from_existing_solution();
 		void check_unique_value();
 
-
 	private:
 		std::array<Cell, 81> m_cells;
 
-		// # strategy 2
-		bool check_unique_values_rows();
-		bool check_unique_values_columns();
-		bool check_unique_values_blocks();
-		bool check_unique_values_area(std::array<int, 9> cells_positions);
+		bool check_unique_values_rows(); /*!< strategy 2 helper */
+		bool check_unique_values_columns(); /*!< strategy 2 helper */
+		bool check_unique_values_blocks(); /*!< strategy 2 helper */
+		bool check_unique_values_area(std::array<int, 9> cells_positions); /*!< strategy 2 helper */
 
 	};
 

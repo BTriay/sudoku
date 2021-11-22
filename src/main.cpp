@@ -3,7 +3,7 @@
 #include <string>
 
 #include "utils\io.h"
-#include "Grid.h"
+#include "domain\Grid.h"
 
 int main(int argc, char* argv[])
 {
