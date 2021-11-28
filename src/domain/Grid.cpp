@@ -6,18 +6,17 @@
 using std::begin;
 using std::end;
 
-engine::Grid::Grid(std::array<int, 81> init_values)
+engine::Grid::Grid(std::array<int, Cell::array_size * Cell::array_size> init_values)
 {
-	for (auto i = 0; i < 81; ++i)
+	for (auto i = 0; i < Cell::array_size * Cell::array_size; ++i)
 	{
 		m_cells[i] = Cell(init_values[i]);
-
 	}
 }
 
 int engine::Grid::cell_solution(int cell_position) const
 {
-	return std::max(m_cells[cell_position].solution(), 0);
+	return std::max(m_cells[cell_position].solution(), Cell::impossible_value);
 }
 
 /*!
@@ -27,7 +26,7 @@ void engine::Grid::clean_from_existing_solution()
 {
 	auto new_solution = false;
 
-	for (auto i = 0; i < 81; ++i)
+	for (auto i = 0; i < Cell::array_size * Cell::array_size; ++i)
 	{
 		if (m_cells[i].solution())
 		{
@@ -69,7 +68,7 @@ void engine::Grid::check_unique_value()
 bool engine::Grid::check_unique_values_rows()
 {
 	auto updated_cell = false;
-	for (auto i = 0; i < 9; ++i)
+	for (auto i = 0; i < Cell::array_size; ++i)
 	{
 		updated_cell = updated_cell || check_unique_values_area(same_row_cells(i * 9));
 	}
@@ -79,7 +78,7 @@ bool engine::Grid::check_unique_values_rows()
 bool engine::Grid::check_unique_values_columns()
 {
 	auto updated_cell = false;
-	for (auto i = 0; i < 9; ++i)
+	for (auto i = 0; i < Cell::array_size; ++i)
 	{
 		updated_cell = updated_cell || check_unique_values_area(same_column_cells(i));
 	}
@@ -89,18 +88,18 @@ bool engine::Grid::check_unique_values_columns()
 bool engine::Grid::check_unique_values_blocks()
 {
 	auto updated_cell = false;
-	for (auto i = 0; i < 9; ++i)
+	for (auto i = 0; i < Cell::array_size; ++i)
 	{
 		updated_cell = updated_cell || check_unique_values_area(same_block_cells(i * 3));
 	}
 	return updated_cell;
 }
 
-bool engine::Grid::check_unique_values_area(std::array<int, 9> cells_positions)
+bool engine::Grid::check_unique_values_area(std::array<int, Cell::array_size> cells_positions)
 {
 	auto updated_cell = false;
 
-	for (auto value = 1; value < 10; ++value)
+	for (auto value = Cell::value_lower_bound; value < Cell::value_upper_bound; ++value)
 	{
 		auto value_found_counter  = 0;
 		auto first_cell_with_value = -1;
@@ -128,36 +127,34 @@ bool engine::Grid::check_unique_values_area(std::array<int, 9> cells_positions)
 // #strategy 3
 
 
-std::array<int, 9> engine::same_row_cells(int cell_position)
+std::array<int, Cell::array_size> engine::same_row_cells(int cell_position)
 {
-	std::array<int, 9> res{};
+	std::array<int, Cell::array_size> res{};
 	std::iota(begin(res), end(res), (cell_position / 9) * 9);
 	return res;
 }
 
-std::array<int, 9> engine::same_column_cells(int cell_position)
+std::array<int, Cell::array_size> engine::same_column_cells(int cell_position)
 {
-	std::array<int, 9> res{};
+	std::array<int, Cell::array_size> res{};
 
-	auto init_value = cell_position % 9;
-	auto i = 0;
-	while (i < 9)
+	const auto init_value = cell_position % 9;
+	for (auto i = 0; i < Cell::array_size; ++i)
 	{
 		res[i] = init_value + i * 9;
-		++i;
 	}
 
 	return res;
 }
 
-std::array<int, 9> engine::same_block_cells(int cell_position)
+std::array<int, Cell::array_size> engine::same_block_cells(int cell_position)
 {
-	std::array<int, 9> res{};
+	std::array<int, Cell::array_size> res{};
 
 	// there must be a simpler way..
-	auto top_left = (cell_position / 27) * 27;
-	auto offset = (((cell_position - top_left) % 9) / 3) * 3;
-	auto init_value = top_left + offset;
+	const auto top_left = (cell_position / 27) * 27;
+	const auto offset = (((cell_position - top_left) % 9) / 3) * 3;
+	const auto init_value = top_left + offset;
 
 	std::iota(begin(res), begin(res) + 3, init_value);
 	std::iota(begin(res) + 3, begin(res) + 6, init_value + 9);
@@ -170,9 +167,9 @@ std::ostream& engine::operator<<(std::ostream& os, const Grid& g)
 {
 	os << '\n';
 
-	for (auto row = 0; row < 9; ++row)
+	for (auto row = 0; row < Cell::array_size; ++row)
 	{
-		for (auto column = 0; column < 9; ++column)
+		for (auto column = 0; column < Cell::array_size; ++column)
 		{
 			if (column == 3 || column == 6)
 				os << "#";

@@ -7,32 +7,32 @@ using std::end;
 
 Cell::Cell(int val)
 {
-	m_solution = 0;
+	m_solution = Cell::impossible_value;
 
-	if (0 < val && val < 10)
+	if (Cell::value_lower_bound <= val && val <= Cell::value_upper_bound)
 		set_solution(val);
 	else
-		std::iota(begin(m_possible_values), end(m_possible_values), 1);
+		std::iota(begin(m_possible_values), end(m_possible_values), Cell::value_lower_bound);
 }
 
 void Cell::set_solution(int val)
 {
-	if (0 < val && val < 10)
+	if (Cell::value_lower_bound <= val && val <= Cell::value_upper_bound)
 	{
 		m_solution = val;
 		remove_all_possible_values();
 	}
 }
 
-std::array<int, 9> Cell::possible_values() const
+std::array<int, Cell::array_size> Cell::possible_values() const
 {
 	return m_possible_values;
 }
 
-bool Cell::is_possible_value(int value)
+bool Cell::is_possible_value(int val)
 {
-	if (0 < value && value < 10)
-		return m_possible_values[value-1] != 0;
+	if (Cell::value_lower_bound <= val && val <= Cell::value_upper_bound)
+		return m_possible_values[val-1] != Cell::impossible_value;
 	
 	return false;
 }
@@ -40,16 +40,15 @@ bool Cell::is_possible_value(int value)
 // return true if we have removed enough values to find the solution
 bool Cell::remove_possible_value(int val)
 {
-	if (0 < val && val < 10)
+	if (Cell::value_lower_bound <= val && val <= Cell::value_upper_bound)
 	{
-		if (m_possible_values[val - 1] == 0)
+		if (m_possible_values[val - 1] == Cell::impossible_value)
 			return false;
 		
-		m_possible_values[val - 1] = 0;
+		m_possible_values[val - 1] = Cell::impossible_value;
 	}
 
-	auto count = std::count(begin(m_possible_values), end(m_possible_values), 0);
-	if (count == 8)
+	if (std::count(begin(m_possible_values), end(m_possible_values), 0) == (Cell::array_size - 1))
 	{
 		set_solution(std::accumulate(begin(m_possible_values), end(m_possible_values), 0));
 		return true;
@@ -60,28 +59,32 @@ bool Cell::remove_possible_value(int val)
 
 void Cell::remove_all_possible_values()
 {
-	std::generate(
-		begin(m_possible_values),
-		end(m_possible_values),
-		[] { return 0; });
+	std::fill(begin(m_possible_values), end(m_possible_values), Cell::impossible_value);
 }
 
-std::array<int, 9> common_possible_values(const Cell& lhs, const Cell& rhs)
+std::array<int, Cell::array_size> common_possible_values(const Cell& lhs, const Cell& rhs)
 {
-	std::array<int, 9> res{};
+	std::array<int, Cell::array_size> res{};
 	auto lhs_arr = lhs.possible_values();
 	auto rhs_arr = rhs.possible_values();
 
-	auto i = 0;
-	while (i < 9)
+	for (auto i = 0; i < Cell::array_size; ++i)
 	{
 		if (lhs_arr[i] && lhs_arr[i] == rhs_arr[i])
 			res[i] = i + 1;
 		else
-			res[i] = 0;
-
-		++i;
+			res[i] = Cell::impossible_value;
 	}
 
 	return res;
+}
+
+constexpr std::array<int, Cell::array_size> zero_init_array()
+{
+	return std::array<int, Cell::array_size> { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+}
+
+constexpr std::array<int, Cell::array_size> iota_init_array()
+{
+	return std::array<int, Cell::array_size> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 }

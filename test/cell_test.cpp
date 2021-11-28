@@ -2,17 +2,6 @@
 
 #include "../src/domain/Cell.cpp"
 
-constexpr std::array<int, 9> zero_init_array()
-{
-	return std::array<int, 9> { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-}
-
-constexpr std::array<int, 9> iota_init_array()
-{
-	return std::array<int, 9> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-}
-
-
 TEST(CellTests, Constructor)
 {
 	Cell c{5};
