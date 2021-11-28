@@ -26,9 +26,7 @@ void Cell::set_solution(int val)
 
 std::array<int, 9> Cell::possible_values() const
 {
-	std::array<int, 9> res{ m_possible_values };
-	
-	return res;
+	return m_possible_values;
 }
 
 bool Cell::is_possible_value(int value)
