@@ -11,7 +11,6 @@ TEST(CellTests, Constructor)
 	EXPECT_EQ(pv, c.possible_values());
 }
 
-
 TEST(CellTests, SetSolution)
 {
 	Cell c;
@@ -26,4 +25,27 @@ TEST(CellTests, SetSolution)
 
 	auto pv2 = zero_init_array();
 	EXPECT_EQ(pv2, c.possible_values());
+}
+
+TEST(CellTests, PossibleValues)
+{
+	Cell c;
+
+	EXPECT_TRUE(c.is_possible_value(1));
+	c.set_solution(2);
+	EXPECT_FALSE(c.is_possible_value(1));
+}
+
+TEST(CellTests, RemovePossibleValue)
+{
+	Cell c;
+	EXPECT_FALSE(c.remove_possible_value(1));
+	EXPECT_FALSE(c.remove_possible_value(2));
+	EXPECT_FALSE(c.remove_possible_value(3));
+	EXPECT_FALSE(c.remove_possible_value(4));
+	EXPECT_FALSE(c.remove_possible_value(5));
+	EXPECT_FALSE(c.remove_possible_value(6));
+	EXPECT_FALSE(c.remove_possible_value(7));
+	EXPECT_TRUE(c.remove_possible_value(8));
+	EXPECT_EQ(9, c.solution());
 }
