@@ -49,3 +49,19 @@ TEST(CellTests, RemovePossibleValue)
 	EXPECT_TRUE(c.remove_possible_value(8));
 	EXPECT_EQ(9, c.solution());
 }
+
+/*
+GridTests todo
+
+pass a grid with...
+- a single non-zero value, only one cell udpated accordingly
+- a known result, make sure if finds it (probably have several cases)
+- non-compatible values, throw an error
+
+pass a row / column / block with a value possible in only one cell
+=> becomes the solution to the cell
+
+pass a row with non-resolved cells, set_solution to one cell, make sure
+that the other cells do not have that value anymore
+
+*/
