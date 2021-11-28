@@ -37,7 +37,9 @@ bool Cell::is_possible_value(int val)
 	return false;
 }
 
-// return true if we have removed enough values to find the solution
+/*!
+return true if we have removed enough values to find the solution
+*/
 bool Cell::remove_possible_value(int val)
 {
 	if (Cell::value_lower_bound <= val && val <= Cell::value_upper_bound)
@@ -48,6 +50,10 @@ bool Cell::remove_possible_value(int val)
 		m_possible_values[val - 1] = Cell::impossible_value;
 	}
 
+	// this will be a problem for the strategy where we try possible solutions
+	// because several values could become impossible at once, although only one
+	// would be updated in the below logic.
+	// need to throw an error somewhere
 	if (std::count(begin(m_possible_values), end(m_possible_values), 0) == (Cell::array_size - 1))
 	{
 		set_solution(std::accumulate(begin(m_possible_values), end(m_possible_values), 0));
