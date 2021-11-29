@@ -19,6 +19,13 @@ target_include_directories(sudoku PUBLIC
 				"${PROJECT_BINARY_DIR}"
 				"${PROJECT_SOURCE_DIR}/Sudobjects")
 
+
+if (MSVC)
+	add_compile_options(/W4 /WX)
+else()
+	add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
+
 target_compile_features(sudoku PUBLIC cxx_std_20)
 
 
