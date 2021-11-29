@@ -3,8 +3,19 @@
 #include "../src/domain/Grid.h"
 #include "../src/domain/Cell.h"
 
+class TestGrid : public engine::Grid
+{
+public:
+	TestGrid(std::array<int, Cell::array_size* Cell::array_size> init_values) :
+		Grid{init_values} {}
+};
+
 constexpr std::array<int, Cell::array_size * Cell::array_size> grid_one_value 
 	= {1};
+
+constexpr std::array<int, Cell::array_size* Cell::array_size> grid_eight_values
+	= { 1, 2, 3, 4, 5, 6, 7, 8 };
+
 
 TEST(GridTests, CellSolution)
 {
@@ -17,8 +28,6 @@ TEST(GridTests, CellSolution)
 
 TEST(GridTests, SameAreaValues)
 {
-	engine::Grid g{ grid_one_value };
-	
 	constexpr std::array<int, Cell::array_size> first_row 
 		= {0, 1, 2, 3, 4, 5, 6, 7, 8};
 	constexpr std::array<int, Cell::array_size> first_column
@@ -35,6 +44,28 @@ TEST(GridTests, SameAreaValues)
 	EXPECT_EQ(b, first_block);
 }
 
+TEST(GridTests, CleanExistingSolution1)
+{
+	TestGrid grid{ grid_one_value };
+	grid.clean_from_existing_solution();
+
+	auto cells = grid.cells();
+	constexpr std::array<int, Cell::array_size> cell_two_possible_values
+		= { 0, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+
+	EXPECT_EQ(cell_two_possible_values, cells[1].possible_values());
+}
+
+TEST(GridTests, CleanExistingSolution2)
+{
+	TestGrid grid{ grid_eight_values };
+	grid.clean_from_existing_solution();
+
+	auto cells = grid.cells();
+
+	EXPECT_EQ(cells[8].solution(), 9);
+}
 
 /*
 GridTests todo

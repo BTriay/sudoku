@@ -13,6 +13,12 @@ namespace engine
 	public:
 		Grid(std::array<int, Cell::array_size * Cell::array_size> init_values);
 
+#ifdef _DEBUG
+		// this is cheating, but allows more tests!
+		virtual ~Grid() = default;
+		auto cells() const -> decltype(auto) { return m_cells; }
+#endif // DEBUG
+
 		int cell_solution(int cell_position) const;
 
 		void clean_from_existing_solution();

@@ -41,7 +41,6 @@ void engine::Grid::clean_from_existing_solution()
 			for (auto c : same_block_cells(i))
 				new_solution = new_solution || m_cells[c].remove_possible_value(sol);
 		}
-
 	}
 
 	if (new_solution)
