@@ -16,6 +16,17 @@ constexpr std::array<int, Cell::array_size * Cell::array_size> grid_one_value
 constexpr std::array<int, Cell::array_size* Cell::array_size> grid_eight_values
 	= { 1, 2, 3, 4, 5, 6, 7, 8 };
 
+constexpr std::array<int, Cell::array_size* Cell::array_size> grid_one_possible_value
+	= { 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 1, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 1, 0, 0,
+		0, 1, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 1, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0};
+
 
 TEST(GridTests, CellSolution)
 {
@@ -35,13 +46,30 @@ TEST(GridTests, SameAreaValues)
 	constexpr std::array<int, Cell::array_size> first_block
 		= { 0, 1, 2, 9, 10, 11, 18, 19, 20 };
 
-	const auto r = engine::same_row_cells(0);
-	const auto c = engine::same_column_cells(0);
-	const auto b = engine::same_block_cells(0);
+	auto r = engine::same_row_cells(0);
+	auto c = engine::same_column_cells(0);
+	auto b = engine::same_block_cells(0);
 
 	EXPECT_EQ(r, first_row);
 	EXPECT_EQ(c, first_column);
 	EXPECT_EQ(b, first_block);
+
+
+	constexpr std::array<int, Cell::array_size> sixth_row
+		= { 45, 46, 47, 48, 49, 50, 51, 52, 53 };
+	constexpr std::array<int, Cell::array_size> fifth_column
+		= { 4, 13, 22, 31, 40, 49, 58, 67, 76 };
+	constexpr std::array<int, Cell::array_size> middle_block
+		= { 30, 31, 32, 39, 40, 41, 48, 49, 50 };
+
+	r = engine::same_row_cells(49);
+	c = engine::same_column_cells(49);
+	b = engine::same_block_cells(49);
+
+	EXPECT_EQ(r, sixth_row);
+	EXPECT_EQ(c, fifth_column);
+	EXPECT_EQ(b, middle_block);
+
 }
 
 TEST(GridTests, CleanExistingSolution1)
@@ -53,7 +81,6 @@ TEST(GridTests, CleanExistingSolution1)
 	constexpr std::array<int, Cell::array_size> cell_two_possible_values
 		= { 0, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-
 	EXPECT_EQ(cell_two_possible_values, cells[1].possible_values());
 }
 
@@ -62,21 +89,35 @@ TEST(GridTests, CleanExistingSolution2)
 	TestGrid grid{ grid_eight_values };
 	grid.clean_from_existing_solution();
 
-	auto cells = grid.cells();
+	const auto cells = grid.cells();
 
 	EXPECT_EQ(cells[8].solution(), 9);
+
+	constexpr std::array<int, Cell::array_size> first_block_possibles_values 
+		= { 0, 0, 0, 4, 5, 6, 7, 8, 9 };
+	EXPECT_EQ(cells[9].possible_values(), first_block_possibles_values);
+
+	EXPECT_EQ(cells[9].solution(), Cell::impossible_value);
+}
+
+TEST(GridTests, CheckUniqueValue)
+{
+	TestGrid grid{ grid_one_possible_value };
+	
+	grid.clean_from_existing_solution();
+	grid.check_unique_value();
+
+	const auto cells = grid.cells();
+
+	EXPECT_EQ(cells[0].solution(), 1);
 }
 
 /*
 GridTests todo
 
 pass a grid with...
-- a single non-zero value, only one cell udpated accordingly
 - a known result, make sure if finds it (probably have several cases)
 - non-compatible values, throw an error
-
-pass a row / column / block with a value possible in only one cell
-=> becomes the solution to the cell
 
 pass a row with non-resolved cells, set_solution to one cell, make sure
 that the other cells do not have that value anymore
