@@ -4,14 +4,20 @@ project(Sudoku	VERSION 0.1
 				DESCRIPTION "Sudoku solver"
 				LANGUAGES CXX)
 				
+add_subdirectory("${PROJECT_SOURCE_DIR}/src/domain")
+
 add_executable(sudoku
 				src/main.cpp
-				src/domain/Grid.cpp
 				src/domain/Grid.h
 				src/utils/io.cpp
 				src/utils/io.h
-				src/domain/Cell.cpp
 				src/domain/Cell.h)
+
+target_link_libraries(sudoku PUBLIC Sudobjects)
+
+target_include_directories(sudoku PUBLIC
+				"${PROJECT_BINARY_DIR}"
+				"${PROJECT_SOURCE_DIR}/Sudobjects")
 
 target_compile_features(sudoku PUBLIC cxx_std_20)
 
@@ -31,9 +37,15 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(sudoku_tests test/cell_test.cpp test/grid_test.cpp)
+add_executable(sudoku_tests
+				test/cell_test.cpp
+				test/grid_test.cpp)
 
-target_link_libraries(sudoku_tests gtest_main)
+target_link_libraries(sudoku_tests gtest_main Sudobjects)
+
+target_include_directories(sudoku_tests PUBLIC
+				"${PROJECT_BINARY_DIR}"
+				"${PROJECT_SOURCE_DIR}/Sudobjects")
 
 include(GoogleTest)
 gtest_discover_tests(sudoku_tests)

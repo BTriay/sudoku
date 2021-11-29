@@ -84,13 +84,3 @@ std::array<int, Cell::array_size> common_possible_values(const Cell& lhs, const 
 
 	return res;
 }
-
-constexpr std::array<int, Cell::array_size> zero_init_array()
-{
-	return std::array<int, Cell::array_size> { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-}
-
-constexpr std::array<int, Cell::array_size> iota_init_array()
-{
-	return std::array<int, Cell::array_size> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-}

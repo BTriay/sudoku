@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../src/domain/Cell.cpp"
+#include "../src/domain/Cell.h"
 
 
 TEST(CellTests, Constructor)
