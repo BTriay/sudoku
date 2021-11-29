@@ -31,7 +31,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(sudoku_tests test/cell_test.cpp)
+add_executable(sudoku_tests test/cell_test.cpp test/grid_test.cpp)
 
 target_link_libraries(sudoku_tests gtest_main)
 
