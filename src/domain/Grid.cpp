@@ -87,9 +87,12 @@ bool engine::Grid::check_unique_values_columns()
 bool engine::Grid::check_unique_values_blocks()
 {
 	auto updated_cell = false;
-	for (auto i = 0; i < Cell::array_size; ++i)
+	for (auto i = 0; i < 3; ++i)
 	{
-		updated_cell = updated_cell || check_unique_values_area(same_block_cells(i * 3));
+		for (auto j = 0; j < 3; ++j)
+		{
+			updated_cell = check_unique_values_area(same_block_cells(i * 3 + j * 27)) || updated_cell;
+		}
 	}
 	return updated_cell;
 }
@@ -210,7 +213,7 @@ std::array<int, Cell::array_size> engine::same_block_cells(int cell_position)
 	std::iota(begin(res), begin(res) + 3, init_value);
 	std::iota(begin(res) + 3, begin(res) + 6, init_value + 9);
 	std::iota(begin(res) + 6, end(res), init_value + 18);
-	
+
 	return res;
 }
 
