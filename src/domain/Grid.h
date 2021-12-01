@@ -23,6 +23,7 @@ namespace engine
 
 		void clean_from_existing_solution();
 		void check_unique_value();
+		void cross_block_constraints();
 
 		void print_possible_cells_values(std::ostream& os);
 

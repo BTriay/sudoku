@@ -64,58 +64,6 @@ void engine::Grid::check_unique_value()
 	}
 }
 
-/*
-* humm not exactly beautiful. To be cleaned up
-*/
-void engine::Grid::print_possible_cells_values(std::ostream& os)
-{
-	for (auto row_first_cell = 0; 
-		row_first_cell < Cell::array_size * Cell::array_size; 
-		row_first_cell += 9)
-	{
-		for (auto row_cell : same_row_cells(row_first_cell))
-		{
-			os << (m_cells[row_cell].is_possible_value(1) ? "1" : " ");
-			os << (m_cells[row_cell].is_possible_value(2) ? "2" : " ");
-			os << (m_cells[row_cell].is_possible_value(3) ? "3" : " ");
-			if ((row_cell % 3 == 2 || row_cell % 6 == 5) && row_cell % 9 != 8)
-				os << " # ";
-			else if (row_cell % 9 != 8)
-				os << " ' ";
-		}
-		os << '\n';
-
-		for (auto row_cell : same_row_cells(row_first_cell))
-		{
-			os << (m_cells[row_cell].is_possible_value(4) ? "4" : " ");
-			os << (m_cells[row_cell].is_possible_value(5) ? "5" : " ");
-			os << (m_cells[row_cell].is_possible_value(6) ? "6" : " ");
-			if ((row_cell % 3 == 2 || row_cell % 6 == 5) && row_cell % 9 != 8)
-				os << " # ";
-			else if (row_cell % 9 != 8)
-				os << " ' ";
-		}
-		os << '\n';
-
-		for (auto row_cell : same_row_cells(row_first_cell))
-		{
-			os << (m_cells[row_cell].is_possible_value(7) ? "7" : " ");
-			os << (m_cells[row_cell].is_possible_value(8) ? "8" : " ");
-			os << (m_cells[row_cell].is_possible_value(9) ? "9" : " ");
-			if ((row_cell % 3 == 2 || row_cell % 6 == 5) && row_cell % 9 != 8)
-				os << " # ";
-			else if (row_cell % 9 != 8)
-				os << " ' ";
-		}
-		os << '\n';
-
-		if (row_first_cell == 18 || row_first_cell == 45)
-			os << "#####################################################\n";
-		else if (row_first_cell != 72)
-			os << "-----------------------------------------------------\n";
-	}
-}
-
 bool engine::Grid::check_unique_values_rows()
 {
 	auto updated_cell = false;
@@ -177,6 +125,58 @@ bool engine::Grid::check_unique_values_area(std::array<int, Cell::array_size> ce
 
 // #strategy 3
 
+
+/*
+* humm not exactly beautiful. To be cleaned up
+*/
+void engine::Grid::print_possible_cells_values(std::ostream& os)
+{
+	for (auto row_first_cell = 0;
+		row_first_cell < Cell::array_size * Cell::array_size;
+		row_first_cell += 9)
+	{
+		for (auto row_cell : same_row_cells(row_first_cell))
+		{
+			os << (m_cells[row_cell].is_possible_value(1) ? "1" : " ");
+			os << (m_cells[row_cell].is_possible_value(2) ? "2" : " ");
+			os << (m_cells[row_cell].is_possible_value(3) ? "3" : " ");
+			if ((row_cell % 3 == 2 || row_cell % 6 == 5) && row_cell % 9 != 8)
+				os << " # ";
+			else if (row_cell % 9 != 8)
+				os << " ' ";
+		}
+		os << '\n';
+
+		for (auto row_cell : same_row_cells(row_first_cell))
+		{
+			os << (m_cells[row_cell].is_possible_value(4) ? "4" : " ");
+			os << (m_cells[row_cell].is_possible_value(5) ? "5" : " ");
+			os << (m_cells[row_cell].is_possible_value(6) ? "6" : " ");
+			if ((row_cell % 3 == 2 || row_cell % 6 == 5) && row_cell % 9 != 8)
+				os << " # ";
+			else if (row_cell % 9 != 8)
+				os << " ' ";
+		}
+		os << '\n';
+
+		for (auto row_cell : same_row_cells(row_first_cell))
+		{
+			os << (m_cells[row_cell].is_possible_value(7) ? "7" : " ");
+			os << (m_cells[row_cell].is_possible_value(8) ? "8" : " ");
+			os << (m_cells[row_cell].is_possible_value(9) ? "9" : " ");
+			if ((row_cell % 3 == 2 || row_cell % 6 == 5) && row_cell % 9 != 8)
+				os << " # ";
+			else if (row_cell % 9 != 8)
+				os << " ' ";
+		}
+		os << '\n';
+
+		if (row_first_cell == 18 || row_first_cell == 45)
+			os << "#####################################################\n";
+		else if (row_first_cell != 72)
+			os << "-----------------------------------------------------\n";
+	}
+}
 
 std::array<int, Cell::array_size> engine::same_row_cells(int cell_position)
 {
