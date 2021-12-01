@@ -24,6 +24,8 @@ namespace engine
 		void clean_from_existing_solution();
 		void check_unique_value();
 
+		void print_possible_cells_values(std::ostream& os);
+
 	private:
 		std::array<Cell, Cell::array_size * Cell::array_size> m_cells;
 

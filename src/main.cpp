@@ -34,4 +34,7 @@ int main(int argc, char* argv[])
     fs << "\nSolution found:\n";
     fs << g;
 
+    fs << "\nPossible values:\n\n";
+    g.print_possible_cells_values(fs);
+
 }
