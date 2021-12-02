@@ -33,13 +33,13 @@ void engine::Grid::clean_from_existing_solution()
 			auto sol = m_cells[i].solution();
 
 			for (auto c : same_row_cells(i))
-				new_solution = new_solution || m_cells[c].remove_possible_value(sol);
+				new_solution = m_cells[c].remove_possible_value(sol) || new_solution;
 
 			for (auto c : same_column_cells(i))
-				new_solution = new_solution || m_cells[c].remove_possible_value(sol);
+				new_solution = m_cells[c].remove_possible_value(sol) || new_solution;
 
 			for (auto c : same_block_cells(i))
-				new_solution = new_solution || m_cells[c].remove_possible_value(sol);
+				new_solution = m_cells[c].remove_possible_value(sol) || new_solution;
 		}
 	}
 
@@ -52,12 +52,19 @@ strategy #2: check if a value is possible in a single cell within a row/column/b
  */
 void engine::Grid::check_unique_value()
 {
-	auto updated_cell = false;
-	updated_cell = updated_cell || check_unique_values_rows();
-	updated_cell = updated_cell || check_unique_values_columns();
-	updated_cell = updated_cell || check_unique_values_blocks();
-	
-	if (updated_cell)
+	if (check_unique_values_rows())
+	{
+		clean_from_existing_solution();
+		check_unique_value();
+	}
+
+	if (check_unique_values_columns())
+	{
+		clean_from_existing_solution();
+		check_unique_value();
+	}
+
+	if (check_unique_values_blocks())
 	{
 		clean_from_existing_solution();
 		check_unique_value();
@@ -69,7 +76,7 @@ bool engine::Grid::check_unique_values_rows()
 	auto updated_cell = false;
 	for (auto i = 0; i < Cell::array_size; ++i)
 	{
-		updated_cell = updated_cell || check_unique_values_area(same_row_cells(i * 9));
+		updated_cell = check_unique_values_area(same_row_cells(i * 9)) || updated_cell;
 	}
 	return updated_cell;
 }
@@ -79,7 +86,7 @@ bool engine::Grid::check_unique_values_columns()
 	auto updated_cell = false;
 	for (auto i = 0; i < Cell::array_size; ++i)
 	{
-		updated_cell = updated_cell || check_unique_values_area(same_column_cells(i));
+		updated_cell = check_unique_values_area(same_column_cells(i)) || updated_cell;
 	}
 	return updated_cell;
 }
@@ -98,10 +105,10 @@ bool engine::Grid::check_unique_values_blocks()
 }
 
 bool engine::Grid::check_unique_values_area(std::array<int, Cell::array_size> cells_positions)
-{
+{	
 	auto updated_cell = false;
 
-	for (auto value = Cell::value_lower_bound; value < Cell::value_upper_bound; ++value)
+	for (auto value = Cell::value_lower_bound; value <= Cell::value_upper_bound; ++value)
 	{
 		auto value_found_counter  = 0;
 		auto first_cell_with_value = -1;
