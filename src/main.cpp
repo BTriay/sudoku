@@ -28,8 +28,11 @@ int main(int argc, char* argv[])
     fs << "Starting grid:\n";
     fs << g;
     
-    g.clean_from_existing_solution();
-    g.check_unique_value();
+    if (!g.find_solution())
+    {
+        std::cout << "Invalid input grid\n";
+        return 1;
+    }
     
     fs << "\nSolution found:\n";
     fs << g;

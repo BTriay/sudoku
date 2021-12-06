@@ -21,9 +21,10 @@ namespace engine
 
 		int cell_solution(int cell_position) const;
 
+		bool find_solution();
 		void clean_from_existing_solution();
 		void check_unique_value();
-		void cross_block_constraints();
+		//void cross_block_constraints();
 
 		void print_possible_cells_values(std::ostream& os);
 
@@ -35,6 +36,7 @@ namespace engine
 		bool check_unique_values_blocks(); /*!< strategy 2 helper */
 		bool check_unique_values_area(std::array<int, Cell::array_size> cells_positions); /*!< strategy 2 helper */
 
+		void check_duplicate_solutions(std::array<int, Cell::array_size> cells_positions);
 	};
 
 	std::array<int, Cell::array_size> same_row_cells(int cell_position);

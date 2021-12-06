@@ -19,6 +19,27 @@ int engine::Grid::cell_solution(int cell_position) const
 	return std::max(m_cells[cell_position].solution(), Cell::impossible_value);
 }
 
+template <typename F>
+struct ApplyFunctionRows : F
+{
+	ApplyFunctionRows(F f) : F(std::move(f)) {}
+	using F::operator();
+};
+
+bool engine::Grid::find_solution()
+{
+	clean_from_existing_solution();
+	try
+	{
+		check_unique_value();
+	}
+	catch (const std::invalid_argument& e)
+	{
+		return false;
+	}
+	return true;
+}
+
 /*!
 strategy #1: simply clean up the possible values based on the existing solution
 */
@@ -130,7 +151,27 @@ bool engine::Grid::check_unique_values_area(std::array<int, Cell::array_size> ce
 		}
 	}
 	
+	check_duplicate_solutions(cells_positions);
 	return updated_cell;
+}
+
+void engine::Grid::check_duplicate_solutions(std::array<int, Cell::array_size> cells_positions)
+{
+	for (auto val = Cell::value_lower_bound; val <= Cell::value_upper_bound; ++val)
+	{
+		auto value_found = false;		
+		for (auto cell_position : cells_positions)
+		{
+			if (m_cells[cell_position].solution() == val)
+			{
+				if (value_found)
+				{
+					throw std::invalid_argument("Invalid input grid");
+				}
+				value_found = true;
+			}
+		}
+	}
 }
 
 // #strategy 3
