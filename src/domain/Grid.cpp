@@ -19,13 +19,6 @@ int engine::Grid::cell_solution(int cell_position) const
 	return std::max(m_cells[cell_position].solution(), engine::impossible_value);
 }
 
-template <typename F>
-struct ApplyFunctionRows : F
-{
-	ApplyFunctionRows(F f) : F(std::move(f)) {}
-	using F::operator();
-};
-
 bool engine::Grid::find_solution()
 {
 	clean_from_existing_solution();
