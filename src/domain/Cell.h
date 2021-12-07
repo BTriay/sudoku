@@ -4,41 +4,48 @@
 #include <array>
 #include <algorithm>
 
-class Cell
+namespace engine
 {
-public:
 	constexpr static int value_lower_bound = 1;
 	constexpr static int value_upper_bound = 9;
 	constexpr static int array_size = value_upper_bound;
 	constexpr static int impossible_value = 0;
+
+	using arr9int = std::array<int, array_size>;
+}
+
+class Cell
+{
+public:
 	
 	Cell(int val = {});
 
 	int solution() const { return m_solution; }
 	void set_solution(int val);
 
-	std::array<int, Cell::array_size> possible_values() const;
+	engine::arr9int possible_values() const;
 	bool is_possible_value(int value);
 	
 	bool remove_possible_value(int val);
 
 private:
 	int m_solution;
-	std::array<int, Cell::array_size> m_possible_values;
+	engine::arr9int m_possible_values;
 
 	void remove_all_possible_values();
 };
 
-std::array<int, Cell::array_size> common_possible_values(const Cell& lhs, const Cell& rhs);
 
-constexpr std::array<int, Cell::array_size> zero_init_array()
+engine::arr9int common_possible_values(const Cell& lhs, const Cell& rhs);
+
+constexpr engine::arr9int zero_init_array()
 {
-	return std::array<int, Cell::array_size> { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	return engine::arr9int{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 }
 
-constexpr std::array<int, Cell::array_size> iota_init_array()
+constexpr engine::arr9int iota_init_array()
 {
-	return std::array<int, Cell::array_size> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	return engine::arr9int{ 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 }
 
 #endif // !HEADER_CELL

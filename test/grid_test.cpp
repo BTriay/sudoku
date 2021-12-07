@@ -6,17 +6,17 @@
 class TestGrid : public engine::Grid
 {
 public:
-	TestGrid(std::array<int, Cell::array_size* Cell::array_size> init_values) :
+	TestGrid(std::array<int, engine::array_size * engine::array_size> init_values) :
 		Grid{init_values} {}
 };
 
-constexpr std::array<int, Cell::array_size * Cell::array_size> grid_one_value 
+constexpr std::array<int, engine::array_size * engine::array_size> grid_one_value
 	= {1};
 
-constexpr std::array<int, Cell::array_size* Cell::array_size> grid_eight_values
+constexpr std::array<int, engine::array_size * engine::array_size> grid_eight_values
 	= { 1, 2, 3, 4, 5, 6, 7, 8 };
 
-constexpr std::array<int, Cell::array_size* Cell::array_size> grid_one_possible_value
+constexpr std::array<int, engine::array_size * engine::array_size> grid_one_possible_value
 	= { 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 1, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 1, 0, 0,
@@ -32,18 +32,18 @@ TEST(GridTests, CellSolution)
 {
 	engine::Grid g{ grid_one_value };
 	EXPECT_EQ(g.cell_solution(0), 1);
-	EXPECT_EQ(g.cell_solution(1), Cell::impossible_value); //2nd cell from the same row
-	EXPECT_EQ(g.cell_solution(9), Cell::impossible_value); //2nd cell from the same column
-	EXPECT_EQ(g.cell_solution(19), Cell::impossible_value); //cell from the same block
+	EXPECT_EQ(g.cell_solution(1), engine::impossible_value); //2nd cell from the same row
+	EXPECT_EQ(g.cell_solution(9), engine::impossible_value); //2nd cell from the same column
+	EXPECT_EQ(g.cell_solution(19), engine::impossible_value); //cell from the same block
 }
 
 TEST(GridTests, SameAreaValues)
 {
-	constexpr std::array<int, Cell::array_size> first_row 
+	constexpr engine::arr9int first_row
 		= {0, 1, 2, 3, 4, 5, 6, 7, 8};
-	constexpr std::array<int, Cell::array_size> first_column
+	constexpr engine::arr9int first_column
 		= { 0, 9, 18, 27, 36, 45, 54, 63, 72 };
-	constexpr std::array<int, Cell::array_size> first_block
+	constexpr engine::arr9int first_block
 		= { 0, 1, 2, 9, 10, 11, 18, 19, 20 };
 
 	auto r = engine::same_row_cells(0);
@@ -55,11 +55,11 @@ TEST(GridTests, SameAreaValues)
 	EXPECT_EQ(b, first_block);
 
 
-	constexpr std::array<int, Cell::array_size> sixth_row
+	constexpr engine::arr9int sixth_row
 		= { 45, 46, 47, 48, 49, 50, 51, 52, 53 };
-	constexpr std::array<int, Cell::array_size> fifth_column
+	constexpr engine::arr9int fifth_column
 		= { 4, 13, 22, 31, 40, 49, 58, 67, 76 };
-	constexpr std::array<int, Cell::array_size> middle_block
+	constexpr engine::arr9int middle_block
 		= { 30, 31, 32, 39, 40, 41, 48, 49, 50 };
 
 	r = engine::same_row_cells(49);
@@ -78,7 +78,7 @@ TEST(GridTests, CleanExistingSolution1)
 	grid.clean_from_existing_solution();
 
 	auto cells = grid.cells();
-	constexpr std::array<int, Cell::array_size> cell_two_possible_values
+	constexpr engine::arr9int cell_two_possible_values
 		= { 0, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 	EXPECT_EQ(cell_two_possible_values, cells[1].possible_values());
@@ -93,11 +93,11 @@ TEST(GridTests, CleanExistingSolution2)
 
 	EXPECT_EQ(cells[8].solution(), 9);
 
-	constexpr std::array<int, Cell::array_size> first_block_possibles_values 
+	constexpr engine::arr9int first_block_possibles_values
 		= { 0, 0, 0, 4, 5, 6, 7, 8, 9 };
 	EXPECT_EQ(cells[9].possible_values(), first_block_possibles_values);
 
-	EXPECT_EQ(cells[9].solution(), Cell::impossible_value);
+	EXPECT_EQ(cells[9].solution(), engine::impossible_value);
 }
 
 TEST(GridTests, CheckUniqueValue)

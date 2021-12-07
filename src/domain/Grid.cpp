@@ -6,9 +6,9 @@
 using std::begin;
 using std::end;
 
-engine::Grid::Grid(std::array<int, Cell::array_size * Cell::array_size> init_values)
+engine::Grid::Grid(std::array<int, engine::array_size * engine::array_size> init_values)
 {
-	for (auto i = 0; i < Cell::array_size * Cell::array_size; ++i)
+	for (auto i = 0; i < engine::array_size * engine::array_size; ++i)
 	{
 		m_cells[i] = Cell(init_values[i]);
 	}
@@ -16,7 +16,7 @@ engine::Grid::Grid(std::array<int, Cell::array_size * Cell::array_size> init_val
 
 int engine::Grid::cell_solution(int cell_position) const
 {
-	return std::max(m_cells[cell_position].solution(), Cell::impossible_value);
+	return std::max(m_cells[cell_position].solution(), engine::impossible_value);
 }
 
 template <typename F>
@@ -47,7 +47,7 @@ void engine::Grid::clean_from_existing_solution()
 {
 	auto new_solution = false;
 
-	for (auto i = 0; i < Cell::array_size * Cell::array_size; ++i)
+	for (auto i = 0; i < engine::array_size * engine::array_size; ++i)
 	{
 		if (m_cells[i].solution())
 		{
@@ -83,7 +83,7 @@ void engine::Grid::check_unique_value()
 bool engine::Grid::check_unique_values_rows()
 {
 	auto updated_cell = false;
-	for (auto i = 0; i < Cell::array_size; ++i)
+	for (auto i = 0; i < engine::array_size; ++i)
 	{
 		updated_cell = check_unique_values_area(same_row_cells(i * 9)) || updated_cell;
 	}
@@ -93,7 +93,7 @@ bool engine::Grid::check_unique_values_rows()
 bool engine::Grid::check_unique_values_columns()
 {
 	auto updated_cell = false;
-	for (auto i = 0; i < Cell::array_size; ++i)
+	for (auto i = 0; i < engine::array_size; ++i)
 	{
 		updated_cell = check_unique_values_area(same_column_cells(i)) || updated_cell;
 	}
@@ -113,11 +113,11 @@ bool engine::Grid::check_unique_values_blocks()
 	return updated_cell;
 }
 
-bool engine::Grid::check_unique_values_area(std::array<int, Cell::array_size> cells_positions)
+bool engine::Grid::check_unique_values_area(engine::arr9int cells_positions)
 {	
 	auto updated_cell = false;
 
-	for (auto value = Cell::value_lower_bound; value <= Cell::value_upper_bound; ++value)
+	for (auto value = engine::value_lower_bound; value <= engine::value_upper_bound; ++value)
 	{
 		auto value_found_counter  = 0;
 		auto first_cell_with_value = -1;
@@ -143,9 +143,9 @@ bool engine::Grid::check_unique_values_area(std::array<int, Cell::array_size> ce
 	return updated_cell;
 }
 
-void engine::Grid::check_duplicate_solutions(std::array<int, Cell::array_size> cells_positions)
+void engine::Grid::check_duplicate_solutions(engine::arr9int cells_positions)
 {
-	for (auto val = Cell::value_lower_bound; val <= Cell::value_upper_bound; ++val)
+	for (auto val = engine::value_lower_bound; val <= engine::value_upper_bound; ++val)
 	{
 		auto value_found = false;		
 		for (auto cell_position : cells_positions)
@@ -171,7 +171,7 @@ void engine::Grid::check_duplicate_solutions(std::array<int, Cell::array_size> c
 void engine::Grid::print_possible_cells_values(std::ostream& os)
 {
 	for (auto row_first_cell = 0;
-		row_first_cell < Cell::array_size * Cell::array_size;
+		row_first_cell < engine::array_size * engine::array_size;
 		row_first_cell += 9)
 	{
 		for (auto row_cell : same_row_cells(row_first_cell))
@@ -217,19 +217,19 @@ void engine::Grid::print_possible_cells_values(std::ostream& os)
 	}
 }
 
-std::array<int, Cell::array_size> engine::same_row_cells(int cell_position)
+engine::arr9int engine::same_row_cells(int cell_position)
 {
-	std::array<int, Cell::array_size> res{};
+	engine::arr9int res{};
 	std::iota(begin(res), end(res), (cell_position / 9) * 9);
 	return res;
 }
 
-std::array<int, Cell::array_size> engine::same_column_cells(int cell_position)
+engine::arr9int engine::same_column_cells(int cell_position)
 {
-	std::array<int, Cell::array_size> res{};
+	engine::arr9int res{};
 
 	const auto init_value = cell_position % 9;
-	for (auto i = 0; i < Cell::array_size; ++i)
+	for (auto i = 0; i < engine::array_size; ++i)
 	{
 		res[i] = init_value + i * 9;
 	}
@@ -237,9 +237,9 @@ std::array<int, Cell::array_size> engine::same_column_cells(int cell_position)
 	return res;
 }
 
-std::array<int, Cell::array_size> engine::same_block_cells(int cell_position)
+engine::arr9int engine::same_block_cells(int cell_position)
 {
-	std::array<int, Cell::array_size> res{};
+	engine::arr9int res{};
 
 	// there must be a simpler way..
 	const auto top_left = (cell_position / 27) * 27;
@@ -257,9 +257,9 @@ std::ostream& engine::operator<<(std::ostream& os, const Grid& g)
 {
 	os << '\n';
 
-	for (auto row = 0; row < Cell::array_size; ++row)
+	for (auto row = 0; row < engine::array_size; ++row)
 	{
-		for (auto column = 0; column < Cell::array_size; ++column)
+		for (auto column = 0; column < engine::array_size; ++column)
 		{
 			if (column == 3 || column == 6)
 				os << "#";
