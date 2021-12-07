@@ -59,6 +59,11 @@ void engine::Grid::clean_from_existing_solution()
 
 	if (new_solution)
 		clean_from_existing_solution();
+
+	// in hard grids with no deterministic solutions, more performant to 
+	// run this before calling the function recursively ?
+	auto check_dupes = &Grid::check_duplicate_solutions;
+	do_on_rows(check_dupes); do_on_columns(check_dupes); do_on_blocks(check_dupes);
 }
 
 /*!
@@ -66,44 +71,15 @@ strategy #2: check if a value is possible in a single cell within a row/column/b
  */
 void engine::Grid::check_unique_value()
 {
-	if (check_unique_values_rows() || check_unique_values_columns() || check_unique_values_blocks())
+	auto check_unique_value_area_ptr = &Grid::check_unique_values_area;
+	
+	if (do_on_rows(check_unique_value_area_ptr) 
+		|| do_on_columns(check_unique_value_area_ptr) 
+		|| do_on_blocks(check_unique_value_area_ptr))
 	{
 		clean_from_existing_solution();
 		check_unique_value();
 	}
-}
-
-bool engine::Grid::check_unique_values_rows()
-{
-	auto updated_cell = false;
-	for (auto i = 0; i < engine::array_size; ++i)
-	{
-		updated_cell = check_unique_values_area(same_row_cells(i * 9)) || updated_cell;
-	}
-	return updated_cell;
-}
-
-bool engine::Grid::check_unique_values_columns()
-{
-	auto updated_cell = false;
-	for (auto i = 0; i < engine::array_size; ++i)
-	{
-		updated_cell = check_unique_values_area(same_column_cells(i)) || updated_cell;
-	}
-	return updated_cell;
-}
-
-bool engine::Grid::check_unique_values_blocks()
-{
-	auto updated_cell = false;
-	for (auto i = 0; i < 3; ++i)
-	{
-		for (auto j = 0; j < 3; ++j)
-		{
-			updated_cell = check_unique_values_area(same_block_cells(i * 3 + j * 27)) || updated_cell;
-		}
-	}
-	return updated_cell;
 }
 
 bool engine::Grid::check_unique_values_area(engine::arr9int cells_positions)
@@ -136,7 +112,7 @@ bool engine::Grid::check_unique_values_area(engine::arr9int cells_positions)
 	return updated_cell;
 }
 
-void engine::Grid::check_duplicate_solutions(engine::arr9int cells_positions)
+bool engine::Grid::check_duplicate_solutions(engine::arr9int cells_positions)
 {
 	for (auto val = engine::value_lower_bound; val <= engine::value_upper_bound; ++val)
 	{
