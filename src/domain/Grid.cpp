@@ -21,9 +21,9 @@ int engine::Grid::cell_solution(int cell_position) const
 
 bool engine::Grid::find_solution()
 {
-	clean_from_existing_solution();
 	try
 	{
+		clean_from_existing_solution();
 		check_unique_value();
 	}
 	catch (const std::invalid_argument& e)
