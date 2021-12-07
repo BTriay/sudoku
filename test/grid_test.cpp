@@ -29,10 +29,25 @@ constexpr engine::arr81int grid_one_possible_value
 TEST(GridTests, CellSolution)
 {
 	engine::Grid g{ grid_one_value };
-	EXPECT_EQ(g.cell_solution(0), 1);
-	EXPECT_EQ(g.cell_solution(1), engine::impossible_value); //2nd cell from the same row
-	EXPECT_EQ(g.cell_solution(9), engine::impossible_value); //2nd cell from the same column
-	EXPECT_EQ(g.cell_solution(19), engine::impossible_value); //cell from the same block
+	
+	constexpr auto cell_position = 0;
+	EXPECT_EQ(g.cell_solution(cell_position), 1);
+
+	auto same_row = engine::same_row_cells(cell_position);
+	auto same_column = engine::same_column_cells(cell_position);
+	auto same_block = engine::same_block_cells(cell_position);
+
+	// check INSTANTIATE_TEST_SUITE_P, might replace this loop
+	for (auto i = 1; i < engine::array_size; ++i)
+	{
+		auto cell_position_next_on_row = same_row[i];
+		auto cell_position_next_on_column = same_column[i];
+		auto cell_position_next_on_block = same_block[i];
+
+		EXPECT_EQ(g.cell_solution(cell_position_next_on_row), engine::impossible_value);
+		EXPECT_EQ(g.cell_solution(cell_position_next_on_column), engine::impossible_value);
+		EXPECT_EQ(g.cell_solution(cell_position_next_on_block), engine::impossible_value);
+	}
 }
 
 TEST(GridTests, SameAreaValues)
