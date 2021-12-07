@@ -12,6 +12,7 @@ namespace engine
 	constexpr static int impossible_value = 0;
 
 	using arr9int = std::array<int, array_size>;
+	using arr81int = std::array<int, array_size * array_size>;
 }
 
 class Cell

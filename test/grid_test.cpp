@@ -6,17 +6,15 @@
 class TestGrid : public engine::Grid
 {
 public:
-	TestGrid(std::array<int, engine::array_size * engine::array_size> init_values) :
+	TestGrid(engine::arr81int init_values) :
 		Grid{init_values} {}
 };
 
-constexpr std::array<int, engine::array_size * engine::array_size> grid_one_value
-	= {1};
+constexpr engine::arr81int grid_one_value = {1};
 
-constexpr std::array<int, engine::array_size * engine::array_size> grid_eight_values
-	= { 1, 2, 3, 4, 5, 6, 7, 8 };
+constexpr engine::arr81int grid_eight_values = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
-constexpr std::array<int, engine::array_size * engine::array_size> grid_one_possible_value
+constexpr engine::arr81int grid_one_possible_value
 	= { 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 1, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 1, 0, 0,
