@@ -73,19 +73,7 @@ strategy #2: check if a value is possible in a single cell within a row/column/b
  */
 void engine::Grid::check_unique_value()
 {
-	if (check_unique_values_rows())
-	{
-		clean_from_existing_solution();
-		check_unique_value();
-	}
-
-	if (check_unique_values_columns())
-	{
-		clean_from_existing_solution();
-		check_unique_value();
-	}
-
-	if (check_unique_values_blocks())
+	if (check_unique_values_rows() || check_unique_values_columns() || check_unique_values_blocks())
 	{
 		clean_from_existing_solution();
 		check_unique_value();
