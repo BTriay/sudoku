@@ -1,9 +1,9 @@
+module io;
+
 import <iostream>;
 import <fstream>;
 import <filesystem>;
 import <array>;
-
-#include "io.h"
 
 bool io::helper::file_exists(const std::string& filename)
 {

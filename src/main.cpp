@@ -2,7 +2,7 @@ import <iostream>;
 import <fstream>;
 import <string>;
 
-#include "utils\io.h"
+import io;
 #include "domain\Grid.h"
 
 int main(int argc, char* argv[])

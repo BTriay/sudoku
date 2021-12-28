@@ -1,7 +1,9 @@
+export module io;
+
 import <string>;
 import <optional>;
 
-namespace io
+export namespace io
 {
 	namespace helper
 	{
