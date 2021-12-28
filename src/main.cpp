@@ -1,6 +1,6 @@
-#include <iostream>
-#include <fstream>
-#include <string>
+import <iostream>;
+import <fstream>;
+import <string>;
 
 #include "utils\io.h"
 #include "domain\Grid.h"

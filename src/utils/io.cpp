@@ -1,7 +1,7 @@
-#include <iostream>
-#include <fstream>
-#include <filesystem>
-#include <array>
+import <iostream>;
+import <fstream>;
+import <filesystem>;
+import <array>;
 
 #include "io.h"
 

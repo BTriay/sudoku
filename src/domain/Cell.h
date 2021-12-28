@@ -1,8 +1,8 @@
 #ifndef HEADER_CELL
 #define HEADER_CELL
 
-#include <array>
-#include <algorithm>
+import <array>;
+import <algorithm>;
 
 namespace engine
 {

@@ -1,8 +1,8 @@
 #ifndef HEADER_GRID
 
-#include <iostream>
-#include <array>
-#include <concepts>
+import <iostream>;
+import <array>;
+import <concepts>;
 
 #include ".\Cell.h"
 

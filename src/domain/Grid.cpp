@@ -1,7 +1,7 @@
 #include "Grid.h"
 
-#include <numeric>
-#include <algorithm>
+import <numeric>;
+import <algorithm>;
 
 using std::begin;
 using std::end;
