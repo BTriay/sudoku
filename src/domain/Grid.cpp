@@ -26,7 +26,7 @@ bool engine::Grid::find_solution()
 		clean_from_existing_solution();
 		check_unique_value();
 	}
-	catch (const std::invalid_argument& e)
+	catch (const std::invalid_argument&)
 	{
 		return false;
 	}
@@ -129,6 +129,8 @@ bool engine::Grid::check_duplicate_solutions(engine::arr9int cells_positions)
 			}
 		}
 	}
+	
+	return true;
 }
 
 // #strategy 3

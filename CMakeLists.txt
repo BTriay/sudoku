@@ -21,7 +21,7 @@ target_include_directories(sudoku PUBLIC
 
 
 if (MSVC)
-	add_compile_options(/W4 /WX)
+	add_compile_options(/W4 /WX /MDd /EHsc /experimental:module)
 else()
 	add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
