@@ -1,10 +1,9 @@
-#ifndef HEADER_CELL
-#define HEADER_CELL
+export module Cell;
 
 import <array>;
 import <algorithm>;
 
-namespace engine
+export namespace engine
 {
 	constexpr static int value_lower_bound = 1;
 	constexpr static int value_upper_bound = 9;
@@ -15,7 +14,7 @@ namespace engine
 	using arr81int = std::array<int, array_size * array_size>;
 }
 
-class Cell
+export class Cell
 {
 public:
 	
@@ -37,16 +36,14 @@ private:
 };
 
 
-engine::arr9int common_possible_values(const Cell& lhs, const Cell& rhs);
+export engine::arr9int common_possible_values(const Cell& lhs, const Cell& rhs);
 
-constexpr engine::arr9int zero_init_array()
+export constexpr engine::arr9int zero_init_array()
 {
 	return engine::arr9int{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 }
 
-constexpr engine::arr9int iota_init_array()
+export constexpr engine::arr9int iota_init_array()
 {
 	return engine::arr9int{ 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 }
-
-#endif // !HEADER_CELL

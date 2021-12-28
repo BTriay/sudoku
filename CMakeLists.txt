@@ -10,8 +10,7 @@ add_executable(sudoku
 				src/main.cpp
 				src/domain/Grid.h
 				src/utils/io.cpp
-				src/utils/io.ixx
-				src/domain/Cell.h)
+				src/utils/io.ixx)
 
 target_link_libraries(sudoku PUBLIC Sudobjects)
 

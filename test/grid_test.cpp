@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "../src/domain/Grid.h"
-#include "../src/domain/Cell.h"
+import Cell;
 
 class TestGrid : public engine::Grid
 {

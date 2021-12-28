@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../src/domain/Cell.h"
-
+import Cell;
 
 TEST(CellTests, Constructor)
 {

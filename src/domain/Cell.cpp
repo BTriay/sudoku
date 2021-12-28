@@ -1,6 +1,6 @@
-import <numeric>;
+module Cell;
 
-#include "Cell.h"
+import <numeric>;
 
 using std::begin;
 using std::end;

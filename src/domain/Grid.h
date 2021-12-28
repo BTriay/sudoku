@@ -4,7 +4,7 @@ import <iostream>;
 import <array>;
 import <concepts>;
 
-#include ".\Cell.h"
+import Cell;
 
 namespace engine
 {

@@ -7,6 +7,7 @@ endif()
 add_library(Sudobjects
             Grid.cpp
             Cell.cpp
+            Cell.ixx
             )
 
 target_compile_features(Sudobjects PUBLIC cxx_std_20)
