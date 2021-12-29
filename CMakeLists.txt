@@ -8,15 +8,14 @@ add_subdirectory("${PROJECT_SOURCE_DIR}/src/domain")
 
 add_executable(sudoku
 				src/main.cpp
-				src/domain/Grid.h
 				src/utils/io.cpp
 				src/utils/io.ixx)
 
-target_link_libraries(sudoku PUBLIC Sudobjects)
+target_link_libraries(sudoku PUBLIC sudobjects)
 
 target_include_directories(sudoku PUBLIC
 				"${PROJECT_BINARY_DIR}"
-				"${PROJECT_SOURCE_DIR}/Sudobjects")
+				"${PROJECT_SOURCE_DIR}/sudobjects")
 
 
 if (MSVC)
@@ -47,11 +46,11 @@ add_executable(sudoku_tests
 				test/cell_test.cpp
 				test/grid_test.cpp)
 
-target_link_libraries(sudoku_tests gtest_main Sudobjects)
+target_link_libraries(sudoku_tests gtest_main sudobjects)
 
 target_include_directories(sudoku_tests PUBLIC
 				"${PROJECT_BINARY_DIR}"
-				"${PROJECT_SOURCE_DIR}/Sudobjects")
+				"${PROJECT_SOURCE_DIR}/sudobjects")
 
 include(GoogleTest)
 gtest_discover_tests(sudoku_tests)

@@ -4,10 +4,11 @@ else()
 	add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-add_library(Sudobjects
+add_library(sudobjects
             Grid.cpp
             Cell.cpp
             Cell.ixx
+            Grid.ixx
             )
 
-target_compile_features(Sudobjects PUBLIC cxx_std_20)
+target_compile_features(sudobjects PUBLIC cxx_std_20)

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../src/domain/Grid.h"
+import Grid;
 import Cell;
 
 class TestGrid : public engine::Grid

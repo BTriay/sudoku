@@ -1,4 +1,4 @@
-#ifndef HEADER_GRID
+export module Grid;
 
 import <iostream>;
 import <array>;
@@ -6,7 +6,7 @@ import <concepts>;
 
 import Cell;
 
-namespace engine
+export namespace engine
 {
 
 	class Grid
@@ -89,5 +89,3 @@ namespace engine
 	}
 
 }
-
-#endif // !HEADER_GRID

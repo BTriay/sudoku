@@ -1,9 +1,10 @@
 import <iostream>;
 import <fstream>;
 import <string>;
+import <array>;
 
 import io;
-#include "domain\Grid.h"
+import Grid;
 
 int main(int argc, char* argv[])
 {
@@ -18,7 +19,7 @@ int main(int argc, char* argv[])
     }
     
     auto grid_array = io::read_txt_grid(filename);
-
+    
     if (!grid_array.has_value())
         return 1;
 
@@ -39,5 +40,5 @@ int main(int argc, char* argv[])
 
     fs << "\nPossible values:\n\n";
     g.print_possible_cells_values(fs);
-
+    
 }

@@ -1,4 +1,4 @@
-#include "Grid.h"
+module Grid;
 
 import <numeric>;
 import <algorithm>;
