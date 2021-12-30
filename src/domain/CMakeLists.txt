@@ -5,10 +5,12 @@ else()
 endif()
 
 add_library(sudobjects
+            GridEngine.cpp
             Grid.cpp
             Cell.cpp
             Cell.ixx
             Grid.ixx
+            GridEngine.ixx
             )
 
 target_compile_features(sudobjects PUBLIC cxx_std_20)
