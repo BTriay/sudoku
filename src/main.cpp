@@ -5,6 +5,7 @@ import <array>;
 
 import io;
 import Grid;
+import GridEngine;
 
 int main(int argc, char* argv[])
 {
@@ -18,12 +19,7 @@ int main(int argc, char* argv[])
         filename = "input_grid.txt";
     }
     
-    auto grid_array = io::read_txt_grid(filename);
-    
-    if (!grid_array.has_value())
-        return 1;
-
-    engine::Grid g{ grid_array.value()};
+    auto g = GridEngine::read_grid_from_file(filename);
 
     std::fstream fs{ "output_grid.txt", std::ios::out };
     fs << "Starting grid:\n";
