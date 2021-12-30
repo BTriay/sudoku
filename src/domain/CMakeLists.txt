@@ -13,4 +13,6 @@ add_library(sudobjects
             GridEngine.ixx
             )
 
+target_link_libraries(sudobjects PUBLIC utils)
+
 target_compile_features(sudobjects PUBLIC cxx_std_20)

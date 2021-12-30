@@ -5,17 +5,17 @@ project(Sudoku	VERSION 0.1
 				LANGUAGES CXX)
 				
 add_subdirectory("${PROJECT_SOURCE_DIR}/src/domain")
+add_subdirectory("${PROJECT_SOURCE_DIR}/src/utils")
 
 add_executable(sudoku
-				src/main.cpp
-				src/utils/io.cpp
-				src/utils/io.ixx)
+				src/main.cpp)
 
-target_link_libraries(sudoku PUBLIC sudobjects)
+target_link_libraries(sudoku PUBLIC sudobjects utils)
 
 target_include_directories(sudoku PUBLIC
 				"${PROJECT_BINARY_DIR}"
-				"${PROJECT_SOURCE_DIR}/sudobjects")
+				"${PROJECT_SOURCE_DIR}/sudobjects"
+				"${PROJECT_SOURCE_DIR}/utils")
 
 
 if (MSVC)
@@ -46,11 +46,12 @@ add_executable(sudoku_tests
 				test/cell_test.cpp
 				test/grid_test.cpp)
 
-target_link_libraries(sudoku_tests gtest_main sudobjects)
+target_link_libraries(sudoku_tests gtest_main sudobjects utils)
 
 target_include_directories(sudoku_tests PUBLIC
 				"${PROJECT_BINARY_DIR}"
-				"${PROJECT_SOURCE_DIR}/sudobjects")
+				"${PROJECT_SOURCE_DIR}/sudobjects"
+				"${PROJECT_SOURCE_DIR}/utils")
 
 include(GoogleTest)
 gtest_discover_tests(sudoku_tests)
