@@ -159,6 +159,40 @@ TEST(GridTests, CheckEasyGrid)
 	EXPECT_EQ(starting_grid, solution_grid);
 }
 
+TEST(GridTests, CheckEasyGrid2)
+{
+	auto input_grid = "090 360 080 \
+		608 007 503 \
+		350 201 006 \
+		245 000 000 \
+		006 000 300 \
+		000 000 857 \
+		500 403 071 \
+		709 100 408 \
+		010 076 020";
+
+	auto solution = "197 365 284 \
+		628 947 513 \
+		354 281 796 \
+		245 738 169 \
+		876 519 342 \
+		931 624 857 \
+		582 493 671 \
+		769 152 438 \
+		413 876 925";
+
+	auto starting_grid = GridEngine::read_grid_from_string(input_grid);
+	starting_grid.find_solution();
+
+	auto solution_grid = GridEngine::read_grid_from_string(solution);
+	solution_grid.find_solution();
+
+	EXPECT_EQ(starting_grid, solution_grid);
+}
+
+
+
+
 /*
 GridTests todo
 
