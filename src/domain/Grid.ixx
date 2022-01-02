@@ -51,6 +51,16 @@ export namespace engine
 
 	std::ostream& operator<<(std::ostream& os, const Grid& g);
 
+	inline bool operator==(const Grid& lhs, const Grid& rhs)
+	{
+		auto res = true;
+		for (auto i = 0; i < engine::array_size * engine::array_size; ++i)
+		{
+			res = (lhs.cell_solution(i) == rhs.cell_solution(i)) && res;
+		}		
+		return res;
+	}
+
 	// member functions
 	template<typename Func>
 	inline bool Grid::do_on_rows(Func f)
