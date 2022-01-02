@@ -2,6 +2,8 @@ module Grid;
 
 import <numeric>;
 import <algorithm>;
+import <string>;
+import <initializer_list>;
 
 using std::begin;
 using std::end;
@@ -141,45 +143,35 @@ bool engine::Grid::check_duplicate_solutions(engine::arr9int cells_positions)
 */
 void engine::Grid::print_possible_cells_values(std::ostream& os)
 {
+	auto print_limits = [&](int row) {
+		if ((row % 3 == 2 || row % 6 == 5) && row % 9 != 8)
+			os << " # ";
+		else if (row % 9 != 8)
+			os << " ' ";
+	};
+
+	auto print_possible_value = [&](int row, int value) {
+		os << (m_cells[row].is_possible_value(value) ? std::to_string(value) : " ");
+	};
+	
+	std::initializer_list<std::initializer_list<int>> rows =
+	{ { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+
 	for (auto row_first_cell = 0;
 		row_first_cell < engine::array_size * engine::array_size;
 		row_first_cell += 9)
 	{
-		for (auto row_cell : same_row_cells(row_first_cell))
+		for (auto& range : rows)
 		{
-			os << (m_cells[row_cell].is_possible_value(1) ? "1" : " ");
-			os << (m_cells[row_cell].is_possible_value(2) ? "2" : " ");
-			os << (m_cells[row_cell].is_possible_value(3) ? "3" : " ");
-			if ((row_cell % 3 == 2 || row_cell % 6 == 5) && row_cell % 9 != 8)
-				os << " # ";
-			else if (row_cell % 9 != 8)
-				os << " ' ";
-		}
-		os << '\n';
+			for (auto row_cell : same_row_cells(row_first_cell))
+			{
+				for (auto value : range)
+					print_possible_value(row_cell, value);
 
-		for (auto row_cell : same_row_cells(row_first_cell))
-		{
-			os << (m_cells[row_cell].is_possible_value(4) ? "4" : " ");
-			os << (m_cells[row_cell].is_possible_value(5) ? "5" : " ");
-			os << (m_cells[row_cell].is_possible_value(6) ? "6" : " ");
-			if ((row_cell % 3 == 2 || row_cell % 6 == 5) && row_cell % 9 != 8)
-				os << " # ";
-			else if (row_cell % 9 != 8)
-				os << " ' ";
+				print_limits(row_cell);
+			}
+			os << '\n';
 		}
-		os << '\n';
-
-		for (auto row_cell : same_row_cells(row_first_cell))
-		{
-			os << (m_cells[row_cell].is_possible_value(7) ? "7" : " ");
-			os << (m_cells[row_cell].is_possible_value(8) ? "8" : " ");
-			os << (m_cells[row_cell].is_possible_value(9) ? "9" : " ");
-			if ((row_cell % 3 == 2 || row_cell % 6 == 5) && row_cell % 9 != 8)
-				os << " # ";
-			else if (row_cell % 9 != 8)
-				os << " ' ";
-		}
-		os << '\n';
 
 		if (row_first_cell == 18 || row_first_cell == 45)
 			os << "#####################################################\n";
