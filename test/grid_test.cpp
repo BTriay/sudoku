@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
 
+import <array>;
+
+import GridEngine;
 import Grid;
 import Cell;
 
@@ -123,6 +126,37 @@ TEST(GridTests, CheckUniqueValue)
 	const auto cells = grid.cells();
 
 	EXPECT_EQ(cells[0].solution(), 1);
+}
+
+TEST(GridTests, CheckEasyGrid)
+{
+	auto input_grid = "045 297 000 \
+		017 450 008 \
+		200 000 750 \
+		000 109 300 \
+		500 020 006 \
+		006 705 000 \
+		084 000 001 \
+		700 048 230 \
+		000 916 840";
+
+	auto solution = "845 297 613 \
+		617 453 928 \
+		239 681 754 \
+		428 169 375 \
+		573 824 196 \
+		196 735 482 \
+		984 372 561 \
+		761 548 239 \
+		352 916 847";
+	
+	auto starting_grid = GridEngine::read_grid_from_string(input_grid);
+	starting_grid.find_solution();
+
+	auto solution_grid = GridEngine::read_grid_from_string(solution);
+	solution_grid.find_solution();
+
+	EXPECT_EQ(starting_grid, solution_grid);
 }
 
 /*
