@@ -190,6 +190,130 @@ TEST(GridTests, CheckEasyGrid2)
 	EXPECT_EQ(starting_grid, solution_grid);
 }
 
+TEST(GridTests, CheckMediumGrid)
+{
+	auto input_grid = "820 306 000 \
+		970 080 105 \
+		004 900 000 \
+		700 010 000 \
+		215 000 683 \
+		000 020 001 \
+		000 008 700 \
+		407 090 016 \
+		000 107 058";
+
+	auto solution = "821 356 947 \
+		973 284 165 \
+		564 971 832 \
+		738 615 294 \
+		215 749 683 \
+		649 823 571 \
+		156 438 729 \
+		487 592 316 \
+		392 167 458";
+
+	auto starting_grid = GridEngine::read_grid_from_string(input_grid);
+	starting_grid.find_solution();
+
+	auto solution_grid = GridEngine::read_grid_from_string(solution);
+	solution_grid.find_solution();
+
+	EXPECT_EQ(starting_grid, solution_grid);
+}
+
+TEST(GridTests, CheckMediumGrid2)
+{
+	auto input_grid = "060 074 100 \
+		002 009 070 \
+		007 830 540 \
+		005 000 700 \
+		030 905 000 \
+		209 007 080 \
+		000 710 453 \
+		001 090 060 \
+		000 000 008";
+
+	auto solution = "568 274 139 \
+		342 159 876 \
+		197 836 542 \
+		685 321 794 \
+		734 985 621 \
+		219 647 385 \
+		926 718 453 \
+		851 493 267 \
+		473 562 918";
+
+	auto starting_grid = GridEngine::read_grid_from_string(input_grid);
+	starting_grid.find_solution();
+
+	auto solution_grid = GridEngine::read_grid_from_string(solution);
+	solution_grid.find_solution();
+
+	EXPECT_EQ(starting_grid, solution_grid);
+}
+
+TEST(GridTests, CheckHardGrid)
+{
+	auto input_grid = "700 090 602 \
+		000 102 009 \
+		010 700 000 \
+		568 000 003 \
+		000 683 004 \
+		000 005 000 \
+		003 050 000 \
+		000 800 405 \
+		001 000 070";
+
+	auto solution = "734 598 612 \
+		685 132 749 \
+		219 764 358 \
+		568 427 193 \
+		197 683 524 \
+		342 915 867 \
+		473 256 981 \
+		926 871 435 \
+		851 349 276";
+
+	auto starting_grid = GridEngine::read_grid_from_string(input_grid);
+	starting_grid.find_solution();
+
+	auto solution_grid = GridEngine::read_grid_from_string(solution);
+	solution_grid.find_solution();
+
+	EXPECT_EQ(starting_grid, solution_grid);
+}
+
+TEST(GridTests, CheckHardGrid2)
+{
+	auto input_grid = "800 009 005 \
+		040 000 726 \
+		000 030 800 \
+		000 047 000 \
+		030 050 000 \
+		004 090 530 \
+		000 070 000 \
+		910 020 080 \
+		020 005 900";
+
+	auto solution = "871 269 345 \
+		349 518 726 \
+		256 734 891 \
+		598 347 162 \
+		132 856 479 \
+		764 192 538 \
+		683 971 254 \
+		915 423 687 \
+		427 685 913";
+
+	auto starting_grid = GridEngine::read_grid_from_string(input_grid);
+	starting_grid.find_solution();
+
+	auto solution_grid = GridEngine::read_grid_from_string(solution);
+	solution_grid.find_solution();
+
+	EXPECT_EQ(starting_grid, solution_grid);
+}
+
 
 
 
