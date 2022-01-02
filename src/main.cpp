@@ -18,8 +18,9 @@ int main(int argc, char* argv[])
     else {
         filename = "input_grid.txt";
     }
-    
-    auto g = GridEngine::read_grid_from_file(filename);
+
+    auto g = GridEngine::read_grid_from_string("123 456 789");
+    //auto g = GridEngine::read_grid_from_file(filename);
 
     std::fstream fs{ "output_grid.txt", std::ios::out };
     fs << "Starting grid:\n";
@@ -36,5 +37,5 @@ int main(int argc, char* argv[])
 
     fs << "\nPossible values:\n\n";
     g.print_possible_cells_values(fs);
-    
+
 }

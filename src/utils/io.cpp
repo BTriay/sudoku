@@ -2,6 +2,7 @@ module io;
 
 import <iostream>;
 import <fstream>;
+import <sstream>;
 import <filesystem>;
 import <array>;
 
@@ -29,7 +30,7 @@ std::optional<std::fstream> io::helper::get_file_stream(const std::string& filen
     return grid;
 }
 
-std::optional<std::array<int, io::grid_size>> io::read_txt_grid(const std::string& filename)
+std::optional<std::array<int, io::grid_size>> io::read_grid_from_file(const std::string& filename)
 {
     auto fs = helper::get_file_stream(filename);
     if (!fs.has_value())
@@ -41,6 +42,24 @@ std::optional<std::array<int, io::grid_size>> io::read_txt_grid(const std::strin
     char c;
 
     while(fs.value().get(c))
+    {
+        if (isdigit(c))
+            *it++ = c - '0';
+    }
+
+    return res;
+}
+
+std::optional<std::array<int, io::grid_size>> io::read_grid_from_string(const std::string& s)
+{
+    std::stringstream fs{ s };
+
+    std::array<int, io::grid_size> res{ };
+
+    auto it = std::begin(res);
+    char c;
+
+    while (fs >> c)
     {
         if (isdigit(c))
             *it++ = c - '0';
