@@ -5,6 +5,21 @@ import <string>;
 import Grid;
 import io;
 
+GridEngine::GridEngine()
+{
+    if (engine_count == 0)
+    {
+        ++engine_count;
+    }
+    else
+        throw std::logic_error("The GridEngine can only be initialised once");
+}
+
+GridEngine::~GridEngine()
+{
+    --engine_count;
+}
+
 engine::Grid GridEngine::read_grid_from_file(const std::string& filename)
 {
     auto grid_array = io::read_grid_from_file(filename);
