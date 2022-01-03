@@ -10,9 +10,11 @@ public:
 	GridEngine();
 	~GridEngine();
 
-	static engine::Grid read_grid_from_file(const std::string& filename);
-	static engine::Grid read_grid_from_string(const std::string& s);
+	engine::Grid read_grid_from_file(const std::string& filename);
+	engine::Grid read_grid_from_string(const std::string& s);
 
 private:
+	engine::Grid last_valid_grid;
+
 	static inline int engine_count = 0;
 };

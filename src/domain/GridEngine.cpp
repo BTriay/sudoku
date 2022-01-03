@@ -5,7 +5,7 @@ import <string>;
 import Grid;
 import io;
 
-GridEngine::GridEngine()
+GridEngine::GridEngine() : last_valid_grid{}
 {
     if (engine_count == 0)
     {
@@ -27,9 +27,9 @@ engine::Grid GridEngine::read_grid_from_file(const std::string& filename)
     if (!grid_array.has_value())
         throw std::invalid_argument("Invalid filename");
 
-    engine::Grid g{ grid_array.value() };
+    last_valid_grid = engine::Grid{ grid_array.value() };
 
-    return g;
+    return last_valid_grid;
 }
 
 engine::Grid GridEngine::read_grid_from_string(const std::string& s)
@@ -39,7 +39,7 @@ engine::Grid GridEngine::read_grid_from_string(const std::string& s)
     if (!grid_array.has_value())
         throw std::invalid_argument("Invalid filename");
 
-    engine::Grid g{ grid_array.value() };
+    last_valid_grid = engine::Grid{ grid_array.value() };
 
-    return g;
+    return last_valid_grid;
 }
