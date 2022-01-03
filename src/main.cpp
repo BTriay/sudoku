@@ -33,6 +33,10 @@ int main(int argc, char* argv[])
         return 1;
     }
     
+    if (!g.grid_solved())
+    {
+        fs << "\nThe grid could not be solved.\n";
+    }
     fs << "\nSolution found:\n";
     fs << g;
 

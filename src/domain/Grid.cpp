@@ -84,6 +84,16 @@ void engine::Grid::check_unique_value()
 	}
 }
 
+bool engine::Grid::grid_solved() const
+{
+	auto solved = true;
+	for (auto& c : m_cells)
+	{
+		solved = solved && (c.solution() != 0);
+	}
+	return solved;
+}
+
 bool engine::Grid::check_unique_values_area(engine::arr9int cells_positions)
 {	
 	auto updated_cell = false;
@@ -136,6 +146,7 @@ bool engine::Grid::check_duplicate_solutions(engine::arr9int cells_positions)
 }
 
 // #strategy 3
+// https://bestofsudoku.com/sudoku-strategy
 
 
 /*

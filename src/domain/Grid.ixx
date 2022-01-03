@@ -26,6 +26,7 @@ export namespace engine
 		bool find_solution();
 		void clean_from_existing_solution();
 		void check_unique_value();
+		bool grid_solved() const;
 
 		void print_possible_cells_values(std::ostream& os);
 
