@@ -12,6 +12,7 @@ export namespace engine
 	class Grid
 	{
 	public:
+		Grid() = default;
 		Grid(std::array<int, engine::array_size * engine::array_size> init_values);
 
 #ifdef _DEBUG
