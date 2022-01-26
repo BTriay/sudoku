@@ -1,5 +1,6 @@
 export module GridEngine;
 
+import <fstream>;
 import <string>;
 
 import Grid;
@@ -7,14 +8,20 @@ import Grid;
 export class GridEngine
 {
 public:
-	GridEngine();
+	GridEngine(std::string& output_filename);
 	~GridEngine();
 
-	engine::Grid read_grid_from_file(const std::string& filename);
-	engine::Grid read_grid_from_string(const std::string& s);
+	void read_grid_from_file(const std::string& filename);
+	void read_grid_from_string(const std::string& s);
+
+	void solve_grid();	
 
 private:
-	engine::Grid last_valid_grid;
+	engine::Grid m_start_grid;
+	engine::Grid m_solution_grid;
+	std::fstream m_fs;
+	
+	bool solve_grid(engine::Grid& g);
 
 	static inline int engine_count = 0;
 };
