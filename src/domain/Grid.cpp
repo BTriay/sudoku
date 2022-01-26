@@ -84,6 +84,54 @@ void engine::Grid::check_unique_value()
 	}
 }
 
+/*!
+strategy #3: brute force, return the grids to try next
+*/
+std::vector<engine::Grid> engine::Grid::next_grids_to_try() const
+{
+	std::vector<engine::Grid> res;
+	
+	if (!grid_solved())
+	{
+		int cell_position{ -1 };
+		int number_possible_values{engine::value_upper_bound + 1};
+
+		for (auto i = 0; i < engine::array_size * engine::array_size; ++i)
+		{
+			auto c = m_cells[i];
+			if (c.solution() != engine::impossible_value) continue;
+
+			auto cell_possible_solutions = c.possible_values();
+			// todo: review ugly static_cast, warning about int64 loss
+			// when doing number_possible_values = count;
+			auto count = static_cast<int>(std::count_if(begin(cell_possible_solutions),
+				end(cell_possible_solutions),
+				[](int i) { return i != engine::impossible_value;  })
+				);
+				
+			if (count < number_possible_values)
+			{
+				cell_position = i;
+				number_possible_values = count;
+			}
+
+			if (count == 2) break; //count == 2 is the minimum, no need to continue
+		}
+
+		auto pv = m_cells[cell_position].possible_values();
+		for (auto v : pv)
+		{
+			if (v == engine::impossible_value) continue;
+
+			auto ng = *this;
+			ng.m_cells[cell_position] = v;
+			res.push_back(ng);
+		}
+	}
+
+	return res;
+}
+
 bool engine::Grid::grid_solved() const
 {
 	auto solved = true;

@@ -2,6 +2,7 @@ export module Grid;
 
 import <iostream>;
 import <array>;
+import <vector>;
 import <concepts>;
 
 import Cell;
@@ -18,6 +19,7 @@ export namespace engine
 #ifdef _DEBUG
 		// this is cheating, but allows more tests!
 		virtual ~Grid() = default;
+
 		auto cells() const -> decltype(auto) { return m_cells; }
 #endif // DEBUG
 
@@ -26,8 +28,9 @@ export namespace engine
 		bool find_solution();
 		void clean_from_existing_solution();
 		void check_unique_value();
-		bool grid_solved() const;
+		std::vector<engine::Grid> next_grids_to_try() const;
 
+		bool grid_solved() const;
 		void print_possible_cells_values(std::ostream& os);
 
 	private:
