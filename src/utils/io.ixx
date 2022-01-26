@@ -16,6 +16,6 @@ export namespace io
 	constexpr int grid_size = 81;
 
 	std::optional<std::array<int, grid_size>> read_grid_from_file(const std::string& filename);
-	std::optional<std::array<int, grid_size>> read_grid_from_string(const std::string& s);
+	std::array<int, grid_size> read_grid_from_string(const std::string& s);
 
 }

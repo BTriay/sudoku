@@ -50,7 +50,7 @@ std::optional<std::array<int, io::grid_size>> io::read_grid_from_file(const std:
     return res;
 }
 
-std::optional<std::array<int, io::grid_size>> io::read_grid_from_string(const std::string& s)
+std::array<int, io::grid_size> io::read_grid_from_string(const std::string& s)
 {
     std::stringstream fs{ s };
 
