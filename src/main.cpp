@@ -1,7 +1,4 @@
-import <iostream>;
-import <fstream>;
 import <string>;
-import <array>;
 
 import io;
 import Grid;
@@ -10,37 +7,18 @@ import GridEngine;
 int main(int argc, char* argv[])
 {
 
-    std::string filename;
+    std::string input_filename;
     if (argc > 1)
     {
-        filename = argv[1];
+        input_filename = argv[1];
     }
     else {
-        filename = "input_grid.txt";
+        input_filename = "input_grid.txt";
     }
 
-    GridEngine ge;
-    //auto g = GridEngine::read_grid_from_string("123 456 789");
-    auto g = ge.read_grid_from_file(filename);
-
-    std::fstream fs{ "output_grid.txt", std::ios::out };
-    fs << "Starting grid:\n";
-    fs << g;
+    std::string output_filename = "output_grid.txt";
     
-    if (!g.find_solution())
-    {
-        std::cout << "Invalid input grid\n";
-        return 1;
-    }
-    
-    if (!g.grid_solved())
-    {
-        fs << "\nThe grid could not be solved.\n";
-    }
-    fs << "\nSolution found:\n";
-    fs << g;
-
-    fs << "\nPossible values:\n\n";
-    g.print_possible_cells_values(fs);
-
+    GridEngine ge{ output_filename };
+    ge.read_grid_from_file(input_filename);
+    ge.solve_grid();
 }
