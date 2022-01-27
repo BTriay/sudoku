@@ -151,7 +151,7 @@ TEST(GridTests, CheckEasyGrid)
 		761 548 239 \
 		352 916 847";
 	
-	GridEngine ge("dummy");
+	GridEngine ge("dummy.txt");
 
 	auto input_grid = ge.read_grid_from_string(input_grid_str);
 	input_grid.find_solution();
@@ -184,7 +184,7 @@ TEST(GridTests, CheckEasyGrid2)
 		769 152 438 \
 		413 876 925";
 
-	GridEngine ge("dummy");
+	GridEngine ge("dummy.txt");
 
 	auto input_grid = ge.read_grid_from_string(input_grid_str);
 	input_grid.find_solution();
@@ -217,7 +217,7 @@ TEST(GridTests, CheckMediumGrid)
 		487 592 316 \
 		392 167 458";
 
-	GridEngine ge("dummy");
+	GridEngine ge("dummy.txt");
 
 	auto input_grid = ge.read_grid_from_string(input_grid_str);
 	input_grid.find_solution();
@@ -250,7 +250,7 @@ TEST(GridTests, CheckMediumGrid2)
 		851 493 267 \
 		473 562 918";
 
-	GridEngine ge("dummy");
+	GridEngine ge("dummy.txt");
 
 	auto input_grid = ge.read_grid_from_string(input_grid_str);
 	input_grid.find_solution();
@@ -283,7 +283,7 @@ TEST(GridTests, CheckHardGrid)
 		926 871 435 \
 		851 349 276";
 	
-	GridEngine ge("dummy");
+	GridEngine ge("dummy.txt");
 
 	auto input_grid = ge.read_grid_from_string(input_grid_str);
 	input_grid.find_solution();
@@ -316,7 +316,7 @@ TEST(GridTests, CheckHardGrid2)
 		915 423 687 \
 		427 685 913";
 
-	GridEngine ge("dummy");
+	GridEngine ge("dummy.txt");
 
 	auto input_grid = ge.read_grid_from_string(input_grid_str);
 	input_grid.find_solution();
@@ -327,6 +327,103 @@ TEST(GridTests, CheckHardGrid2)
 	EXPECT_EQ(input_grid, solution_grid);
 }
 
+TEST(GridTests, CheckEvildGrid)
+{
+	auto input_grid_str = "380 100 070 \
+		000 004 200 \
+		006 000 000 \
+		750 300 080 \
+		900 000 000 \
+		000 010 003 \
+		560 020 700 \
+		009 500 000 \
+		001 000 060";
+
+	auto simple_solution_grid_str = "385 102 070 \
+		197 004 200 \
+		426 000 000 \
+		752 300 080 \
+		913 000 007 \
+		648 010 003 \
+		564 020 700 \
+		009 500 000 \
+		001 000 060";
+
+	auto brute_force_solution_grid_str = "385 192 674 \
+		197 684 235 \
+		426 735 891 \
+		752 349 186 \
+		913 856 427 \
+		648 217 953 \
+		564 923 718 \
+		879 561 342 \
+		231 478 569";
+
+	GridEngine ge("dummy.txt");
+	ge.init_grid_from_string(input_grid_str);
+	ge.solve_grid();
+
+	auto input_grid = ge.read_grid_from_string(input_grid_str);
+	input_grid.find_solution();
+
+	auto simple_solution_grid = ge.read_grid_from_string(simple_solution_grid_str);
+	simple_solution_grid.find_solution();
+
+	auto brut_force_solution_grid = ge.read_grid_from_string(brute_force_solution_grid_str);
+	brut_force_solution_grid.find_solution();
+
+	EXPECT_EQ(input_grid, simple_solution_grid);
+	EXPECT_EQ(ge.solution(), brut_force_solution_grid);
+}
+
+TEST(GridTests, CheckEvildGrid2)
+{
+	auto input_grid_str = "004 000 300 \
+		009 800 000 \
+		380 010 020 \
+		000 006 010 \
+		003 000 000 \
+		750 400 200 \
+		000 040 005 \
+		090 000 000 \
+		820 500 700";
+
+	auto simple_solution_grid_str = "004 000 300 \
+		009 800 000 \
+		386 010 020 \
+		942 006 010 \
+		163 000 000 \
+		758 401 200 \
+		637 040 005 \
+		495 000 002 \
+		821 500 700";
+
+	auto brute_force_solution_grid_str = "514 627 389 \
+		279 834 651 \
+		386 915 427 \
+		942 376 518 \
+		163 258 974 \
+		758 491 236 \
+		637 142 895 \
+		495 783 162 \
+		821 569 743";
+
+	GridEngine ge("dummy.txt");
+	ge.init_grid_from_string(input_grid_str);
+	ge.solve_grid();
+
+	auto input_grid = ge.read_grid_from_string(input_grid_str);
+	input_grid.find_solution();
+
+	auto simple_solution_grid = ge.read_grid_from_string(simple_solution_grid_str);
+	simple_solution_grid.find_solution();
+
+	auto brut_force_solution_grid = ge.read_grid_from_string(brute_force_solution_grid_str);
+	brut_force_solution_grid.find_solution();
+
+	EXPECT_EQ(input_grid, simple_solution_grid);
+	EXPECT_EQ(ge.solution(), brut_force_solution_grid);
+}
 
 /*
 GridTests todo
