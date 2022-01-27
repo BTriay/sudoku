@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 import <array>;
+import <string>;
 
 import GridEngine;
 import Grid;
@@ -130,9 +131,7 @@ TEST(GridTests, CheckUniqueValue)
 
 TEST(GridTests, CheckEasyGrid)
 {
-	GridEngine ge;
-
-	auto input_grid = "045 297 000 \
+	auto input_grid_str = "045 297 000 \
 		017 450 008 \
 		200 000 750 \
 		000 109 300 \
@@ -142,7 +141,7 @@ TEST(GridTests, CheckEasyGrid)
 		700 048 230 \
 		000 916 840";
 
-	auto solution = "845 297 613 \
+	auto solution_grid_str = "845 297 613 \
 		617 453 928 \
 		239 681 754 \
 		428 169 375 \
@@ -152,20 +151,20 @@ TEST(GridTests, CheckEasyGrid)
 		761 548 239 \
 		352 916 847";
 	
-	auto starting_grid = ge.read_grid_from_string(input_grid);
-	starting_grid.find_solution();
+	GridEngine ge("dummy");
 
-	auto solution_grid = ge.read_grid_from_string(solution);
+	auto input_grid = ge.read_grid_from_string(input_grid_str);
+	input_grid.find_solution();
+
+	auto solution_grid = ge.read_grid_from_string(solution_grid_str);
 	solution_grid.find_solution();
 
-	EXPECT_EQ(starting_grid, solution_grid);
+	EXPECT_EQ(input_grid, solution_grid);
 }
 
 TEST(GridTests, CheckEasyGrid2)
 {
-	GridEngine ge;
-
-	auto input_grid = "090 360 080 \
+	auto input_grid_str = "090 360 080 \
 		608 007 503 \
 		350 201 006 \
 		245 000 000 \
@@ -175,7 +174,7 @@ TEST(GridTests, CheckEasyGrid2)
 		709 100 408 \
 		010 076 020";
 
-	auto solution = "197 365 284 \
+	auto solution_grid_str = "197 365 284 \
 		628 947 513 \
 		354 281 796 \
 		245 738 169 \
@@ -185,20 +184,20 @@ TEST(GridTests, CheckEasyGrid2)
 		769 152 438 \
 		413 876 925";
 
-	auto starting_grid = ge.read_grid_from_string(input_grid);
-	starting_grid.find_solution();
+	GridEngine ge("dummy");
 
-	auto solution_grid = ge.read_grid_from_string(solution);
+	auto input_grid = ge.read_grid_from_string(input_grid_str);
+	input_grid.find_solution();
+
+	auto solution_grid = ge.read_grid_from_string(solution_grid_str);
 	solution_grid.find_solution();
 
-	EXPECT_EQ(starting_grid, solution_grid);
+	EXPECT_EQ(input_grid, solution_grid);
 }
 
 TEST(GridTests, CheckMediumGrid)
 {
-	GridEngine ge;
-
-	auto input_grid = "820 306 000 \
+	auto input_grid_str = "820 306 000 \
 		970 080 105 \
 		004 900 000 \
 		700 010 000 \
@@ -208,7 +207,7 @@ TEST(GridTests, CheckMediumGrid)
 		407 090 016 \
 		000 107 058";
 
-	auto solution = "821 356 947 \
+	auto solution_grid_str = "821 356 947 \
 		973 284 165 \
 		564 971 832 \
 		738 615 294 \
@@ -218,20 +217,20 @@ TEST(GridTests, CheckMediumGrid)
 		487 592 316 \
 		392 167 458";
 
-	auto starting_grid = ge.read_grid_from_string(input_grid);
-	starting_grid.find_solution();
+	GridEngine ge("dummy");
 
-	auto solution_grid = ge.read_grid_from_string(solution);
+	auto input_grid = ge.read_grid_from_string(input_grid_str);
+	input_grid.find_solution();
+
+	auto solution_grid = ge.read_grid_from_string(solution_grid_str);
 	solution_grid.find_solution();
 
-	EXPECT_EQ(starting_grid, solution_grid);
+	EXPECT_EQ(input_grid, solution_grid);
 }
 
 TEST(GridTests, CheckMediumGrid2)
 {
-	GridEngine ge;
-
-	auto input_grid = "060 074 100 \
+	auto input_grid_str = "060 074 100 \
 		002 009 070 \
 		007 830 540 \
 		005 000 700 \
@@ -241,7 +240,7 @@ TEST(GridTests, CheckMediumGrid2)
 		001 090 060 \
 		000 000 008";
 
-	auto solution = "568 274 139 \
+	auto solution_grid_str = "568 274 139 \
 		342 159 876 \
 		197 836 542 \
 		685 321 794 \
@@ -251,20 +250,20 @@ TEST(GridTests, CheckMediumGrid2)
 		851 493 267 \
 		473 562 918";
 
-	auto starting_grid = ge.read_grid_from_string(input_grid);
-	starting_grid.find_solution();
+	GridEngine ge("dummy");
 
-	auto solution_grid = ge.read_grid_from_string(solution);
+	auto input_grid = ge.read_grid_from_string(input_grid_str);
+	input_grid.find_solution();
+
+	auto solution_grid = ge.read_grid_from_string(solution_grid_str);
 	solution_grid.find_solution();
 
-	EXPECT_EQ(starting_grid, solution_grid);
+	EXPECT_EQ(input_grid, solution_grid);
 }
 
 TEST(GridTests, CheckHardGrid)
 {
-	GridEngine ge;
-
-	auto input_grid = "700 090 602 \
+	auto input_grid_str = "700 090 602 \
 		000 102 009 \
 		010 700 000 \
 		568 000 003 \
@@ -274,7 +273,7 @@ TEST(GridTests, CheckHardGrid)
 		000 800 405 \
 		001 000 070";
 
-	auto solution = "734 598 612 \
+	auto solution_grid_str = "734 598 612 \
 		685 132 749 \
 		219 764 358 \
 		568 427 193 \
@@ -283,21 +282,21 @@ TEST(GridTests, CheckHardGrid)
 		473 256 981 \
 		926 871 435 \
 		851 349 276";
+	
+	GridEngine ge("dummy");
 
-	auto starting_grid = ge.read_grid_from_string(input_grid);
-	starting_grid.find_solution();
+	auto input_grid = ge.read_grid_from_string(input_grid_str);
+	input_grid.find_solution();
 
-	auto solution_grid = ge.read_grid_from_string(solution);
+	auto solution_grid = ge.read_grid_from_string(solution_grid_str);
 	solution_grid.find_solution();
 
-	EXPECT_EQ(starting_grid, solution_grid);
+	EXPECT_EQ(input_grid, solution_grid);
 }
 
 TEST(GridTests, CheckHardGrid2)
 {
-	GridEngine ge;
-
-	auto input_grid = "800 009 005 \
+	auto input_grid_str = "800 009 005 \
 		040 000 726 \
 		000 030 800 \
 		000 047 000 \
@@ -307,7 +306,7 @@ TEST(GridTests, CheckHardGrid2)
 		910 020 080 \
 		020 005 900";
 
-	auto solution = "871 269 345 \
+	auto solution_grid_str = "871 269 345 \
 		349 518 726 \
 		256 734 891 \
 		598 347 162 \
@@ -317,23 +316,22 @@ TEST(GridTests, CheckHardGrid2)
 		915 423 687 \
 		427 685 913";
 
-	auto starting_grid = ge.read_grid_from_string(input_grid);
-	starting_grid.find_solution();
+	GridEngine ge("dummy");
 
-	auto solution_grid = ge.read_grid_from_string(solution);
+	auto input_grid = ge.read_grid_from_string(input_grid_str);
+	input_grid.find_solution();
+
+	auto solution_grid = ge.read_grid_from_string(solution_grid_str);
 	solution_grid.find_solution();
 
-	EXPECT_EQ(starting_grid, solution_grid);
+	EXPECT_EQ(input_grid, solution_grid);
 }
-
-
 
 
 /*
 GridTests todo
 
 pass a grid with...
-- a known result, make sure if finds it (probably have several cases)
 - non-compatible values, throw an error
 
 pass a row with non-resolved cells, set_solution to one cell, make sure
