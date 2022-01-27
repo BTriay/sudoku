@@ -3,7 +3,7 @@ module GridEngine;
 import Grid;
 import io;
 
-GridEngine::GridEngine(std::string& output_filename) : 
+GridEngine::GridEngine(std::string output_filename) : 
     m_start_grid{}, m_solution_grid{}
 {
     if (engine_count == 0)
@@ -20,19 +20,29 @@ GridEngine::~GridEngine()
     --engine_count;
 }
 
-void GridEngine::read_grid_from_file(const std::string& filename)
+void GridEngine::init_grid_from_file(const std::string& filename)
+{
+    m_start_grid = read_grid_from_file(filename);
+}
+
+engine::Grid GridEngine::read_grid_from_file(const std::string& filename)
 {
     auto grid_array = io::read_grid_from_file(filename);
 
     if (!grid_array.has_value())
         throw std::invalid_argument("Invalid filename");
 
-    m_start_grid = grid_array.value();
+    return grid_array.value();
 }
 
-void GridEngine::read_grid_from_string(const std::string& s)
+void GridEngine::init_grid_from_string(const std::string& s)
 {
     m_start_grid = engine::Grid{ io::read_grid_from_string(s) };
+}
+
+engine::Grid GridEngine::read_grid_from_string(const std::string& s)
+{
+    return engine::Grid{ io::read_grid_from_string(s) };
 }
 
 void GridEngine::solve_grid()

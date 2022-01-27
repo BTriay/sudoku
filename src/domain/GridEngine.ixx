@@ -8,13 +8,20 @@ import Grid;
 export class GridEngine
 {
 public:
-	GridEngine(std::string& output_filename);
+	GridEngine(std::string output_filename);
 	~GridEngine();
 
-	void read_grid_from_file(const std::string& filename);
-	void read_grid_from_string(const std::string& s);
+	void init_grid_from_file(const std::string& filename);
+	static engine::Grid read_grid_from_file(const std::string& filename);
 
-	void solve_grid();	
+	void init_grid_from_string(const std::string& s);
+	static engine::Grid read_grid_from_string(const std::string& s);
+
+	void solve_grid();
+
+#ifdef _DEBUG
+	engine::Grid solution() const { return m_solution_grid; }
+#endif
 
 private:
 	engine::Grid m_start_grid;
